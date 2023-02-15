@@ -2,7 +2,7 @@ import LoginComp from "./componets/LoginComp";
 
 function App() {
   return (
-    <div className="App">
+    <div className="h-screen flex justify-center items-center">
       <LoginComp />
     </div>
   );
