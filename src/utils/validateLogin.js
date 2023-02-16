@@ -7,5 +7,10 @@ export const validateEmail = (email) => {
 };
 
 export const validatePass = (secret) => {
-  const isValid = new RegExp();
+  // max 20 characters length, accepts space and special char
+  const isValid = new RegExp(/^.{1,20}$/);
+
+  const result = isValid.test(email);
+
+  return result;
 };

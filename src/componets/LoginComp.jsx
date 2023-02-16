@@ -1,32 +1,57 @@
 import { useState, Fragment } from "react";
+import { validateEmail } from "../utils/validateLogin";
 
 const LoginComp = () => {
-  const [userName, setUserName] = useState("");
-  const [pass, setPass] = useState("");
+  // const [email, setEmail] = useState("");
+  // const [pass, setPass] = useState("");
+  const [userCred, setUserCred] = useState({
+    email: "",
+    Pass: "",
+  });
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const handleEmail = (e) => {
+    e.preventDefault();
+
+    setUserCred((prevState) => ({
+      ...prevState,
+      email: e.target.value,
+    }));
+
+    const isValid = validateEmail(userCred.email);
+
+    if (!isValid) {
+      setErrorMessage("Please enter a valid email");
+    } else {
+      setErrorMessage("");
+    }
+  };
+
+  const handlePass = (e) => {};
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    console.log("submited");
   };
 
   return (
     <form className="w-64" onSubmit={handleSubmit}>
-      <label className="block text-sm font-medium text-gray-700">
-        User Name:
-        <input
-          className="my-4 block w-full rounded-md border-gray-500 shadow-md focus:border-indigo-500 focus:ring-indigo-500 sm:text-md"
-          type="text"
-          value={userName}
-          onChange={(e) => setUserName(e.target.value)}
-        />
+      <label className="block text-md font-medium text-gray-700">
+        Email Address
       </label>
+      {errorMessage && <p className="text-sm text-pink-600">{errorMessage}</p>}
+      <input
+        className="my-4 block w-full rounded-md border-gray-500 shadow-md focus:border-indigo-500 focus:ring-indigo-500 sm:text-md"
+        type="text"
+        value={userCred.email}
+        onChange={handleEmail}
+      />
+
       <label className="block text-sm font-medium text-gray-700">
         Password
         <input
           className="my-4 block w-full rounded-md border-gray-500 shadow-md focus:border-indigo-500 focus:ring-indigo-500 sm:text-md"
           type="text"
-          value={pass}
+          value={userCred.pass}
           onChange={(e) => setPass(e.target.value)}
         />
       </label>
