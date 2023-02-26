@@ -1,6 +1,6 @@
+import { useNavigate } from "react-router-dom";
 import { useState, Fragment } from "react";
-import { validateEmail } from "../utils/validateLogin";
-import { checkLogin } from "../api/api-calls.js";
+import { validateEmail } from "../../utils/validateLogin";
 
 const LoginComp = () => {
   const [userCred, setUserCred] = useState({
@@ -8,6 +8,7 @@ const LoginComp = () => {
     pass: "",
   });
   const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate();
 
   const handleEmail = (e) => {
     e.preventDefault();
@@ -28,15 +29,14 @@ const LoginComp = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const isValid = await checkLogin(userCred);
-
-    console.log({ isValid });
   };
 
   return (
     <Fragment>
-      <form className="w-64" onSubmit={handleSubmit}>
+      <form
+        className="w-80 bg-white p-6 rounded-lg shadow-md"
+        onSubmit={handleSubmit}
+      >
         <label className="block text-md font-medium text-gray-700">
           Email Address
         </label>
@@ -66,13 +66,20 @@ const LoginComp = () => {
             }}
           />
         </label>
-
-        <button
-          type="submit"
-          className="inline-flex justify-center rounded-md border border-transparent bg-green-400 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
-        >
-          Login
-        </button>
+        <div className="flex justify-between">
+          <button
+            type="submit"
+            className="inline-flex justify-center rounded-md border border-transparent bg-green-400 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+          >
+            Login
+          </button>
+          <button
+            onClick={() => navigate("/register")}
+            className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+          >
+            Sign Up
+          </button>
+        </div>
       </form>
     </Fragment>
   );
