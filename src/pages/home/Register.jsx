@@ -1,44 +1,52 @@
 import { useState, Fragment } from "react";
 import { validateEmail } from "../../utils/validateLogin";
-import { Form, redirect, useActionData } from "react-router-dom";
-
-export async function action({ request }) {
-  const formData = await request.formData();
-  const errors = {};
-
-  const submission = {
-    firstName: formData.get("firstName"),
-    lastName: formData.get("lastName"),
-    email: formData.get("email"),
-    password: formData.get("password"),
-  };
-
-  console.log(submission);
-
-  if (!validateEmail(submission.email)) {
-    return { errors: "Invalid Email address" };
-  }
-
-  return redirect("/userDashboard");
-}
+import { useNavigate } from "react-router-dom";
+import axios from "../../api/axios";
 
 const Register = () => {
-  const [errorMessage, setErrorMessage] = useState("");
-  const data = useActionData;
+  const [errMsg, setErrMsg] = useState("");
+  const [newUser, setNewUser] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
 
-  const handleEmail = (e) => {
-    const isValid = validateEmail(e.target.value);
+  const navigate = useNavigate();
 
-    if (!isValid) {
-      setErrorMessage("Please enter a valid email");
-    } else {
-      setErrorMessage("");
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const { firstName, lastName, email, password, confirmPassword } = newUser;
+
+    if (!validateEmail(email)) {
+      setErrMsg("Invalid Email");
+      return;
     }
+
+    if (password != confirmPassword) {
+      setErrMsg("Password doesn't match");
+      return;
+    }
+
+    setErrMsg("Password doesn't match");
+    navigate("/userDashboard");
   };
 
   return (
-    <Fragment>
-      <Form method="post" className="w-64">
+    <div className="w-80 bg-white p-6 rounded-lg shadow-md py-16">
+      <div>
+        {errMsg && (
+          <p
+            className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
+            role="alert"
+          >
+            {errMsg}
+          </p>
+        )}
+      </div>
+      <form onSubmit={handleSubmit}>
         <div className="flex justify-between">
           <div>
             <label className="block text-md font-medium text-gray-700">
@@ -48,6 +56,13 @@ const Register = () => {
               className="my-4 block w-full rounded-md border-gray-500 shadow-md focus:border-indigo-500 focus:ring-indigo-500 sm:text-md"
               type="text"
               name="firstName"
+              value={newUser.firstName}
+              onChange={(e) => {
+                setNewUser((prevState) => ({
+                  ...prevState,
+                  firstName: e.target.value,
+                }));
+              }}
               required
             />
           </div>
@@ -59,6 +74,13 @@ const Register = () => {
               className="my-4 block w-full rounded-md border-gray-500 shadow-md focus:border-indigo-500 focus:ring-indigo-500 sm:text-md"
               type="text"
               name="lastName"
+              value={newUser.lastName}
+              onChange={(e) => {
+                setNewUser((prevState) => ({
+                  ...prevState,
+                  lastName: e.target.value,
+                }));
+              }}
               required
             />
           </div>
@@ -67,15 +89,18 @@ const Register = () => {
         <label className="block text-md font-medium text-gray-700">
           Email Address
         </label>
-        {(errorMessage || data.errors) && (
-          <p className="text-sm text-pink-600">{errorMessage}</p>
-        )}
         <input
           className="my-4 block w-full rounded-md border-gray-500 shadow-md focus:border-indigo-500 focus:ring-indigo-500 sm:text-md"
           type="text"
           name="email"
-          // value={userEmail}
-          onChange={handleEmail}
+          autoComplete="new-password"
+          value={newUser.email}
+          onChange={(e) => {
+            setNewUser((prevState) => ({
+              ...prevState,
+              email: e.target.value,
+            }));
+          }}
           required
         />
 
@@ -83,8 +108,34 @@ const Register = () => {
           Password
           <input
             className="my-4 block w-full rounded-md border-gray-500 shadow-md focus:border-indigo-500 focus:ring-indigo-500 sm:text-md"
-            type="text"
+            type="password"
             name="password"
+            autoComplete="new-password"
+            value={newUser.password}
+            onChange={(e) => {
+              setNewUser((prevState) => ({
+                ...prevState,
+                password: e.target.value,
+              }));
+            }}
+            required
+          />
+        </label>
+
+        <label className="block text-sm font-medium text-gray-700">
+          Confirm Password
+          <input
+            className="my-4 block w-full rounded-md border-gray-500 shadow-md focus:border-indigo-500 focus:ring-indigo-500 sm:text-md"
+            type="password"
+            name="password"
+            autoComplete="new-password"
+            value={newUser.confirmPassword}
+            onChange={(e) => {
+              setNewUser((prevState) => ({
+                ...prevState,
+                confirmPassword: e.target.value,
+              }));
+            }}
             required
           />
         </label>
@@ -96,8 +147,8 @@ const Register = () => {
             SignUp
           </button>
         </div>
-      </Form>
-    </Fragment>
+      </form>
+    </div>
   );
 };
 
