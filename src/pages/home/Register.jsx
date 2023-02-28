@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import axios from "../../api/axios";
 
 const Register = () => {
+  const registerURL = import.meta.env.VITE_REGISTER_URL;
+  const navigate = useNavigate();
   const [errMsg, setErrMsg] = useState("");
   const [newUser, setNewUser] = useState({
     firstName: "",
@@ -12,8 +14,6 @@ const Register = () => {
     password: "",
     confirmPassword: "",
   });
-
-  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -30,8 +30,32 @@ const Register = () => {
       return;
     }
 
-    setErrMsg("Password doesn't match");
-    navigate("/userDashboard");
+    try {
+      const response = await axios.post(
+        registerURL,
+        JSON.stringify({ firstName, lastName, email, password }),
+        {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true,
+        }
+      );
+
+      const accessToken = response?.data?.accessToken;
+      setAuth({ email, password, accessToken });
+      setErrMsg("");
+      navigate("/userDashboard");
+    } catch (err) {
+      if (!err?.response) {
+        setErrMsg("No Server Response");
+      }
+      if (err.response?.status === 409) {
+        setErrMsg("Username Taken");
+      }
+      if (err.response?.status === 400) {
+        setErrMsg("Registration Failed");
+      }
+      return;
+    }
   };
 
   return (
@@ -142,7 +166,7 @@ const Register = () => {
         <div className="flex justify-between">
           <button
             type="submit"
-            className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+            className=" w-full inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
           >
             SignUp
           </button>
