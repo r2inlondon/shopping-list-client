@@ -1,12 +1,14 @@
-import { useNavigate, Link } from "react-router-dom";
-import { useState, useContext } from "react";
+import { useNavigate, useLocation, Link } from "react-router-dom";
+import { useState } from "react";
 import { validateEmail } from "../../utils/validateLogin";
-import AuthContext from "../../context/AuthProvider";
 import axios from "../../api/axios";
+import useAuth from "../../hooks/useAuth";
 
 const LoginComp = () => {
+  const { setAuth } = useAuth();
   const navigate = useNavigate();
-  const { setAuth } = useContext(AuthContext);
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/home";
   const [userCred, setUserCred] = useState({
     email: "",
     password: "",
@@ -36,7 +38,8 @@ const LoginComp = () => {
       const accessToken = response?.data?.accessToken;
       setAuth({ email, password, accessToken });
       setErrMsg("");
-      navigate("/userDashboard");
+      // navigate("/userDashboard");
+      navigate(from, { replace: true });
     } catch (err) {
       if (!err?.response) {
         setErrMsg("No Server Response");
@@ -100,12 +103,12 @@ const LoginComp = () => {
           </button>
         </div>
       </form>
-      <p className="my-4">
-        Need an account?{" "}
+      <div className="my-4">
+        Need an account?
         <Link to="/register">
-          <span className="text-blue-600">SignUp</span>
+          <span className="text-blue-600 px-2">SignUp</span>
         </Link>
-      </p>
+      </div>
     </div>
   );
 };
