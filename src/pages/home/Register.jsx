@@ -1,11 +1,16 @@
-import { useState, Fragment } from "react";
+import { useState } from "react";
 import { validateEmail } from "../../utils/validateLogin";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
 import axios from "../../api/axios";
+
 
 const Register = () => {
   const registerURL = import.meta.env.VITE_REGISTER_URL;
+  const { setAuth } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/home";
   const [errMsg, setErrMsg] = useState("");
   const [newUser, setNewUser] = useState({
     firstName: "",
@@ -14,6 +19,7 @@ const Register = () => {
     password: "",
     confirmPassword: "",
   });
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -40,11 +46,15 @@ const Register = () => {
         }
       );
 
+      console.log({response})
+
       const accessToken = response?.data?.accessToken;
       setAuth({ email, password, accessToken });
       setErrMsg("");
-      navigate("/userDashboard");
+      // navigate("/userDashboard");
+      navigate(from, { replace: true });
     } catch (err) {
+      console.log(err)
       if (!err?.response) {
         setErrMsg("No Server Response");
       }
@@ -99,6 +109,7 @@ const Register = () => {
               type="text"
               name="lastName"
               value={newUser.lastName}
+              autoComplete="new-password"
               onChange={(e) => {
                 setNewUser((prevState) => ({
                   ...prevState,
@@ -117,7 +128,7 @@ const Register = () => {
           className="my-4 block w-full rounded-md border-gray-500 shadow-md focus:border-indigo-500 focus:ring-indigo-500 sm:text-md"
           type="text"
           name="email"
-          autoComplete="new-password"
+          autoComplete="password"
           value={newUser.email}
           onChange={(e) => {
             setNewUser((prevState) => ({

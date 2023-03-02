@@ -5,6 +5,7 @@ import axios from "../../api/axios";
 import useAuth from "../../hooks/useAuth";
 
 const LoginComp = () => {
+  const loginURL = import.meta.env.VITE_LOGIN_URL;
   const { setAuth } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
@@ -18,7 +19,7 @@ const LoginComp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const loginURL = import.meta.env.VITE_LOGIN_URL;
+
     const { email, password } = userCred;
 
     if (!validateEmail(email)) {
@@ -35,6 +36,7 @@ const LoginComp = () => {
           withCredentials: true,
         }
       );
+      console.log({response})
       const accessToken = response?.data?.accessToken;
       setAuth({ email, password, accessToken });
       setErrMsg("");
