@@ -19,7 +19,6 @@ const LoginComp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-
     const { email, password } = userCred;
 
     if (!validateEmail(email)) {
@@ -36,7 +35,6 @@ const LoginComp = () => {
           withCredentials: true,
         }
       );
-      console.log({response})
       const accessToken = response?.data?.accessToken;
       setAuth({ email, password, accessToken });
       setErrMsg("");
