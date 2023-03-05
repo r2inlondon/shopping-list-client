@@ -36,7 +36,7 @@ const LoginComp = () => {
         }
       );
       const accessToken = response?.data?.accessToken;
-      setAuth({ email, password, accessToken });
+      setAuth({ email, accessToken });
       setErrMsg("");
       // navigate("/userDashboard");
       navigate(from, { replace: true });
