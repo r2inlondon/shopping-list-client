@@ -1,9 +1,10 @@
 import { Routes, Route } from "react-router-dom";
 import RequireAuth from "./components/RequireAuth";
 import Root from "./layouts/Root";
-import Register from "./pages/home/Register";
-import LoginComp from "./pages/home/LoginComp";
 import UserHome from "./layouts/UserHome";
+import Register from "./pages/login/Register";
+import LoginComp from "./pages/login/LoginComp";
+import ListsPage from "./pages/home/ListsPage";
 import NotFoundPage from "./components/NotFoundPage";
 
 function App() {
@@ -16,7 +17,9 @@ function App() {
 
         {/* Protected routes */}
         <Route element={<RequireAuth />}>
-          <Route path="/home" element={<UserHome />} />
+          <Route path="/home" element={<UserHome />}>
+            <Route path="ListPage" element={<ListsPage />} />
+          </Route>
         </Route>
 
         {/* Catch all */}

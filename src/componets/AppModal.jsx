@@ -1,13 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 const AppModal = ({ showModal, setShowModal, formContent, submitEvent }) => {
   const [inputValue, setInputValue] = useState(formContent);
+  const inputRef = useRef(null);
   const formContentKeys = Object.keys(formContent);
+
+  useEffect(() => {
+    if (showModal) {
+      inputRef.current.focus();
+    }
+  }, [showModal]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     await submitEvent(inputValue);
+    setInputValue(formContent);
     setShowModal(false);
   };
 
@@ -58,6 +66,7 @@ const AppModal = ({ showModal, setShowModal, formContent, submitEvent }) => {
                               name: event.target.value,
                             }))
                           }
+                          ref={inputRef}
                         />
                       </div>
                     </div>
