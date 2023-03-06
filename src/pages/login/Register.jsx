@@ -44,8 +44,6 @@ const Register = () => {
         }
       );
 
-      console.log({ response });
-
       const accessToken = response?.data?.accessToken;
       setAuth({ email, accessToken });
       setErrMsg("");

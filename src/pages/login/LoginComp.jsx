@@ -43,9 +43,10 @@ const LoginComp = () => {
     } catch (err) {
       if (!err?.response) {
         setErrMsg("No Server Response");
-      }
-      if (err.response?.status === 400) {
+      } else if (err.response?.status === 400) {
         setErrMsg("Login Failed");
+      } else {
+        console.error(err.message);
       }
       return;
     }
