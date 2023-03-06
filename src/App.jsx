@@ -5,7 +5,7 @@ import UserHome from "./layouts/UserHome";
 import Register from "./pages/login/Register";
 import LoginComp from "./pages/login/LoginComp";
 import ListsPage from "./pages/home/ListsPage";
-import ListItemsPage from "./pages/home/ListItemsPage";
+import ShoppingItemsPage from "./pages/home/ShoppingItemsPage";
 import NotFoundPage from "./components/NotFoundPage";
 
 function App() {
@@ -20,7 +20,7 @@ function App() {
         <Route element={<RequireAuth />}>
           <Route path="/home" element={<UserHome />}>
             <Route path="ListPage" element={<ListsPage />} />
-            <Route path="ListPage/:listId" element={<ListItemsPage />} />
+            <Route path="ListPage/:listId" element={<ShoppingItemsPage />} />
           </Route>
         </Route>
 

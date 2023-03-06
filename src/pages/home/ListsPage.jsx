@@ -64,6 +64,10 @@ const ListsPage = () => {
     }
   };
 
+  const goToList = (listId) => {
+    navigate(`/home/ListPage/${listId}`);
+  };
+
   return (
     <Fragment>
       <div className="flex justify-end">
@@ -80,7 +84,7 @@ const ListsPage = () => {
             {userLists.map((list) => (
               <li key={list.id}>
                 <button
-                  onClick={() => handleList(list.id)}
+                  onClick={() => goToList(list.id)}
                   className="mb-5 w-full inline-flex justify-center border border-transparent bg-slate-300 py-2 px-4 text-sm font-medium text-black shadow-sm hover:bg-slate-200 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
                 >
                   {list.name}

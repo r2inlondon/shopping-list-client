@@ -1,10 +1,11 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import { Fragment, useState, useRef } from "react";
 import { useEffect } from "react";
 
-const ListItemsPage = () => {
+const ShoppingItemsPage = () => {
   let { listId } = useParams();
+  const navigate = useNavigate();
   const [listItems, setListItems] = useState([]);
   const axiosPrivate = useAxiosPrivate();
   const effectRun = useRef(false);
@@ -34,10 +35,17 @@ const ListItemsPage = () => {
       controller.abort();
       effectRun.current = true;
     };
-  });
+  }, []);
 
   return (
     <Fragment>
+      <button
+        onClick={() => navigate("/home/ListPage/")}
+        className="mb-5 inline-flex justify-center border border-transparent bg-slate-300 py-2 px-4 text-sm font-medium text-black shadow-sm hover:bg-slate-200 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+      >
+        {" "}
+        Home
+      </button>
       {listItems?.length ? (
         <ul>
           {listItems.map((item) => (
@@ -51,4 +59,4 @@ const ListItemsPage = () => {
   );
 };
 
-export default ListItemsPage;
+export default ShoppingItemsPage;
