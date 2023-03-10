@@ -3,6 +3,7 @@ import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import { useEffect, Fragment, useState, useRef } from "react";
 import AddProductForm from "../../components/AddProductForm";
 import ReModal from "../../components/ReModal";
+import sortBy from "sort-by";
 
 const ShoppingItemsPage = () => {
   let { listId } = useParams();
@@ -23,7 +24,8 @@ const ShoppingItemsPage = () => {
         const response = await axiosPrivate.get(`/shopping/${listId}`, {
           signal: controller.signal,
         });
-        isMounted && setListItems(response.data);
+        const alltemsSorted = response.data.sort(sortBy("product.name"));
+        isMounted && setListItems(alltemsSorted);
         setIsLoading(false);
         return response;
       } catch (err) {
@@ -61,9 +63,25 @@ const ShoppingItemsPage = () => {
     setShowModal(false);
   };
 
+  const handleCompleted = async (itemId, completed) => {
+    const isCompleted = !completed;
+
+    try {
+      const response = await axiosPrivate.put("/shopping", {
+        headers: { "Content-Type": "application/json" },
+        withCredentials: true,
+        id: itemId,
+        completed: isCompleted,
+      });
+      setIsLoading(true);
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
+
   return (
     <Fragment>
-      <div className="flex justify-between">
+      <div className="flex justify-between mb-4">
         <button
           onClick={() => navigate("/home/ListPage/")}
           className="inline-flex justify-center border border-transparent bg-slate-300 py-2 px-4 text-sm font-medium text-black shadow-sm hover:bg-slate-200 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
@@ -86,11 +104,19 @@ const ShoppingItemsPage = () => {
         </p>
       )}
       {listItems?.length ? (
-        <ul>
-          {listItems.map((item) => (
-            <li key={item.id}>{item.product.name}</li>
-          ))}
-        </ul>
+        listItems.map((item) => (
+          <div key={item.id} className="flex justify-between mb-4">
+            <span>{item.product.name}</span>
+            <input
+              id="default-checkbox"
+              type="checkbox"
+              value={item.id}
+              checked={item.completed}
+              onChange={() => handleCompleted(item.id, item.completed)}
+              className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+            />
+          </div>
+        ))
       ) : (
         <h3>Shopping List is empty</h3>
       )}
