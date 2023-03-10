@@ -5,8 +5,8 @@ import UserHome from "./layouts/UserHome";
 import Register from "./pages/login/Register";
 import LoginComp from "./pages/login/LoginComp";
 import ListsPage from "./pages/home/ListsPage";
-import ShoppingItemsPage from "./pages/home/ShoppingItemsPage";
-import NotFoundPage from "./components/NotFoundPage";
+import ShoppingItemsPage from "./pages/shopping/ShoppingItemsPage";
+import NotFoundPage from "./pages/404/NotFoundPage";
 
 function App() {
   return (

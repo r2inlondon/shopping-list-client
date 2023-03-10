@@ -97,7 +97,7 @@ const ListsPage = () => {
         )}
       </div>
 
-      <ReModal showModal={showModal} setShowModal={setShowModal}>
+      <ReModal showModal={showModal}>
         <form onSubmit={createList}>
           <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
             <div className="sm:flex sm:items-start">

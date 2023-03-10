@@ -1,6 +1,6 @@
 import React from "react";
 
-const ReModal = ({ showModal, setShowModal, children }) => {
+const ReModal = ({ showModal, children }) => {
   //   const handleModalClick = (event) => {
   //     if (event.target === event.currentTarget) {
   //       setShowModal(false);
