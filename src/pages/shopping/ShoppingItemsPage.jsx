@@ -12,6 +12,7 @@ const ShoppingItemsPage = () => {
   const effectRun = useRef(false);
   const [showModal, setShowModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [errMsg, setErrMsg] = useState("");
 
   useEffect(() => {
     let isMounted = true;
@@ -49,9 +50,13 @@ const ShoppingItemsPage = () => {
         listId,
         name: item,
       });
+      setErrMsg("");
       setIsLoading(true);
     } catch (err) {
       console.error(err.message);
+      if (err.response?.status === 409) {
+        setErrMsg(`${item} is already on the list`);
+      }
     }
     setShowModal(false);
   };
@@ -72,6 +77,14 @@ const ShoppingItemsPage = () => {
           Add Product +
         </button>
       </div>
+      {errMsg && (
+        <p
+          className="bg-red-100 border border-red-400 text-red-700 px-4 rounded relative"
+          role="alert"
+        >
+          {errMsg}
+        </p>
+      )}
       {listItems?.length ? (
         <ul>
           {listItems.map((item) => (
