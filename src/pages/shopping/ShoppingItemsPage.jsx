@@ -24,8 +24,8 @@ const ShoppingItemsPage = () => {
         const response = await axiosPrivate.get(`/shopping/${listId}`, {
           signal: controller.signal,
         });
-        const alltemsSorted = response.data.sort(sortBy("product.name"));
-        isMounted && setListItems(alltemsSorted);
+        const allItemsSorted = response.data.sort(sortBy("product.name"));
+        isMounted && setListItems(allItemsSorted);
         setIsLoading(false);
         return response;
       } catch (err) {
@@ -67,11 +67,24 @@ const ShoppingItemsPage = () => {
     const isCompleted = !completed;
 
     try {
-      const response = await axiosPrivate.put("/shopping", {
+      await axiosPrivate.put("/shopping", {
         headers: { "Content-Type": "application/json" },
         withCredentials: true,
         id: itemId,
         completed: isCompleted,
+      });
+      setIsLoading(true);
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
+
+  const deleteCompleted = async () => {
+    try {
+      const response = await axiosPrivate.delete("/shopping/del-completed", {
+        headers: { "Content-Type": "application/json" },
+        withCredentials: true,
+        listId,
       });
       setIsLoading(true);
     } catch (err) {
@@ -87,6 +100,12 @@ const ShoppingItemsPage = () => {
           className="inline-flex justify-center border border-transparent bg-slate-300 py-2 px-4 text-sm font-medium text-black shadow-sm hover:bg-slate-200 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
         >
           Home
+        </button>
+        <button
+          onClick={() => deleteCompleted()}
+          className="inline-flex justify-center border border-transparent bg-slate-300 py-2 px-4 text-sm font-medium text-black shadow-sm hover:bg-slate-200 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+        >
+          Clear
         </button>
         <button
           onClick={() => setShowModal(true)}
@@ -105,7 +124,10 @@ const ShoppingItemsPage = () => {
       )}
       {listItems?.length ? (
         listItems.map((item) => (
-          <div key={item.id} className="flex justify-between mb-4">
+          <div
+            key={item.id}
+            className="flex justify-between items-center py-2 mb-2 bg-lime-100"
+          >
             <span>{item.product.name}</span>
             <input
               id="default-checkbox"

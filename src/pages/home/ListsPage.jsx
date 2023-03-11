@@ -53,9 +53,11 @@ const ListsPage = () => {
 
   const createList = async (e) => {
     e.preventDefault();
+    const trimmedNamed = newListName.trim();
+
     try {
       const response = await axiosPrivate.post("lists/new", {
-        name: newListName,
+        name: trimmedNamed,
       });
       navigate(`/home/ListPage/${response.data.id}`);
     } catch (err) {

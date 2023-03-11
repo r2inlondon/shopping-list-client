@@ -8,8 +8,10 @@ const AddProductForm = ({ addProduct, setShowModal }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const trimmedNamed = product.trim();
+
     setSubmitting(true);
-    addProduct(product);
+    addProduct(trimmedNamed);
   };
 
   useEffect(() => {
