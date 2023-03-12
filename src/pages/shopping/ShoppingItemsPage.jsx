@@ -14,6 +14,11 @@ const ShoppingItemsPage = () => {
   const [showModal, setShowModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [errMsg, setErrMsg] = useState("");
+  const [selectedItem, setSelectedItem] = useState(null);
+  const noCheckedStyle =
+    "flex justify-between items-center py-2 mb-2 bg-lime-100";
+  const checkedStyle =
+    "translate-y-6 opacity-0 transition-opacity duration-500 ease-in-out";
 
   useEffect(() => {
     let isMounted = true;
@@ -24,7 +29,9 @@ const ShoppingItemsPage = () => {
         const response = await axiosPrivate.get(`/shopping/${listId}`, {
           signal: controller.signal,
         });
-        const allItemsSorted = response.data.sort(sortBy("product.name"));
+        const allItemsSorted = response.data.sort(
+          sortBy("completed", "product.name")
+        );
         isMounted && setListItems(allItemsSorted);
         setIsLoading(false);
         return response;
@@ -63,16 +70,22 @@ const ShoppingItemsPage = () => {
     setShowModal(false);
   };
 
-  const handleCompleted = async (itemId, completed) => {
-    const isCompleted = !completed;
+  const handleCompleted = (index) => {
+    setSelectedItem(index);
+  };
+
+  const handleTransition = async (e) => {
+    const { id, checked } = e.target.children[1];
+    console.log(id, checked);
 
     try {
       await axiosPrivate.put("/shopping", {
         headers: { "Content-Type": "application/json" },
         withCredentials: true,
-        id: itemId,
-        completed: isCompleted,
+        id,
+        completed: !checked,
       });
+      setSelectedItem(null);
       setIsLoading(true);
     } catch (err) {
       console.error(err.message);
@@ -123,18 +136,22 @@ const ShoppingItemsPage = () => {
         </p>
       )}
       {listItems?.length ? (
-        listItems.map((item) => (
+        listItems.map((item, index) => (
           <div
+            onTransitionEnd={(e) => handleTransition(e)}
             key={item.id}
-            className="flex justify-between items-center py-2 mb-2 bg-lime-100"
+            className={selectedItem === index ? checkedStyle : noCheckedStyle}
+            // className={`${noCheckedStyle} ${
+            //   selectedItem === index ? "translate-y-6 opacity-0" : "opacity-100"
+            // } transition-opacity duration-500 ease-in-out`}
           >
             <span>{item.product.name}</span>
             <input
-              id="default-checkbox"
+              id={item.id}
               type="checkbox"
               value={item.id}
               checked={item.completed}
-              onChange={() => handleCompleted(item.id, item.completed)}
+              onChange={() => handleCompleted(index)}
               className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
             />
           </div>
