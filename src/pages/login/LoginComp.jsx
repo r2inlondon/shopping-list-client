@@ -43,8 +43,12 @@ const LoginComp = () => {
     } catch (err) {
       if (!err?.response) {
         setErrMsg("No Server Response");
-      } else if (err.response?.status === 400) {
+      }
+      if (err.response?.status === 400) {
         setErrMsg("Login Failed");
+      }
+      if (err.response?.status === 403) {
+        setErrMsg("Email not found, please create an account");
       } else {
         console.error(err.message);
       }
