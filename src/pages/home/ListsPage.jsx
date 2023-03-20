@@ -34,13 +34,13 @@ const ListsPage = () => {
     };
 
     // Check if useEffect has run the first time
-    if (effectRun.current) {
-      getUserLists();
-    }
+    // if (effectRun.current === false) {
+    getUserLists();
+    // }
 
     return () => {
       isMounted = false;
-      controller.abort();
+      // controller.abort();
       effectRun.current = true;
     };
   }, [isLoading]);
