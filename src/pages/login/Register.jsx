@@ -50,7 +50,6 @@ const Register = () => {
       // navigate("/userDashboard");
       navigate(from, { replace: true });
     } catch (err) {
-      console.log(err);
       if (!err?.response) {
         setErrMsg("No Server Response");
       }
