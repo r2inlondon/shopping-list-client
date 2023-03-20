@@ -28,8 +28,10 @@ const ListsPage = () => {
         return response;
       } catch (err) {
         console.error(err.message);
-        // token expired, back to login
-        navigate("/", { state: { from: location }, replace: true });
+        if (err.response?.status === 403) {
+          // token expired, back to login
+          navigate("/", { state: { from: location }, replace: true });
+        }
       }
     };
 
@@ -40,8 +42,8 @@ const ListsPage = () => {
 
     return () => {
       isMounted = false;
-      // controller.abort();
-      effectRun.current = true;
+      controller.abort();
+      // effectRun.current = true;
     };
   }, [isLoading]);
 

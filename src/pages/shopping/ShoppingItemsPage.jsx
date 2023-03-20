@@ -41,12 +41,16 @@ const ShoppingItemsPage = () => {
         return response;
       } catch (err) {
         console.error(err.message);
+        if (err.response?.status === 403) {
+          // token expired, back to login
+          navigate("/", { state: { from: location }, replace: true });
+        }
       }
     };
 
-    if (effectRun.current) {
-      getListItems();
-    }
+    // if (effectRun.current) {
+    getListItems();
+    // }
 
     return () => {
       isMounted = false;
@@ -105,16 +109,15 @@ const ShoppingItemsPage = () => {
   };
 
   const onElementAppear = (el, index) => {
-    const isChecked = el.childNodes[1].checked
+    const isChecked = el.childNodes[1].checked;
     spring({
       onUpdate: (val) => {
         el.style.opacity = !isChecked ? val : val / 2;
         el.style.transform = `scale(${val})`;
       },
-      delay: index * 10
+      delay: index * 10,
     });
-  }
-  
+  };
 
   return (
     <Fragment>
@@ -154,14 +157,14 @@ const ShoppingItemsPage = () => {
           listItems.map((item, index) => {
             if (!item.completed) {
               return (
-                <Flipped 
-                  key={item.id} 
+                <Flipped
+                  key={item.id}
                   flipId={item.id}
-                  onAppear={onElementAppear}                      
-                  >
+                  onAppear={onElementAppear}
+                >
                   <div className={noCheckedStyle}>
                     <span>{item.product.name}</span>
-                    <input                      
+                    <input
                       id={item.id}
                       type="checkbox"
                       value={item.id}
@@ -173,23 +176,23 @@ const ShoppingItemsPage = () => {
                 </Flipped>
               );
             } else {
-              return (                
-                <Flipped  
+              return (
+                <Flipped
                   flipId={`${item.id}-checked`}
                   key={`${item.id}-checked`}
                   onAppear={onElementAppear}
-                > 
+                >
                   <div key={item.id} className={checkedStyle}>
-                  <span>{item.product.name}</span>
-                  <input
-                    id={item.id}
-                    type="checkbox"
-                    value={item.id}
-                    checked={item.completed}
-                    onChange={() => handleCompleted(item.id, item.completed)}
-                    className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                  />
-                </div>              
+                    <span>{item.product.name}</span>
+                    <input
+                      id={item.id}
+                      type="checkbox"
+                      value={item.id}
+                      checked={item.completed}
+                      onChange={() => handleCompleted(item.id, item.completed)}
+                      className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                    />
+                  </div>
                 </Flipped>
               );
             }
@@ -202,7 +205,5 @@ const ShoppingItemsPage = () => {
     </Fragment>
   );
 };
-
-
 
 export default ShoppingItemsPage;
