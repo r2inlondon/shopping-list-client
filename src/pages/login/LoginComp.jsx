@@ -38,7 +38,6 @@ const LoginComp = () => {
       const accessToken = response?.data?.accessToken;
       setAuth({ email, accessToken });
       setErrMsg("");
-      // navigate("/userDashboard");
       navigate(from, { replace: true });
     } catch (err) {
       if (!err?.response) {
@@ -48,7 +47,7 @@ const LoginComp = () => {
         setErrMsg("Login Failed");
       }
       if (err.response?.status === 403) {
-        setErrMsg("Email not found, please create an account");
+        setErrMsg("Email not found, please register");
       } else {
         console.error(err.message);
       }

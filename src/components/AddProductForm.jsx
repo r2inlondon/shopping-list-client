@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, Fragment } from "react";
+import { useState, useRef, useEffect } from "react";
 import Spinning from "./Spinning";
 
 const AddProductForm = ({ addProduct, setShowModal }) => {
