@@ -1,7 +1,7 @@
 import { useParams, useNavigate } from "react-router-dom";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import { useEffect, Fragment, useState, useRef } from "react";
-import AddProductForm from "../../components/AddProductForm";
+import AddProductForm from "./AddProductForm";
 import ReModal from "../../components/ReModal";
 import sortBy from "sort-by";
 import { Flipper, Flipped, spring } from "react-flip-toolkit";
@@ -15,14 +15,6 @@ const ShoppingItemsPage = () => {
   const [showModal, setShowModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [errMsg, setErrMsg] = useState("");
-  const noCheckedStyle =
-    "flex justify-between items-center h-8 mb-2 bg-lime-100";
-  // const transitionStyle =
-  //   "transform translate-y-28 opacity-0 ease-linear duration-1000";
-  const checkedStyle =
-    " opacity-50 flex justify-between items-center py-2 mb-2 bg-gray-100";
-  const textAndCheckboxSytle =
-    "w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600";
 
   useEffect(() => {
     let isMounted = true;
@@ -162,7 +154,7 @@ const ShoppingItemsPage = () => {
                   flipId={item.id}
                   onAppear={onElementAppear}
                 >
-                  <div className={noCheckedStyle}>
+                  <div className="flex justify-between items-center h-8 mb-2 bg-lime-100">
                     <span>{item.product.name}</span>
                     <input
                       id={item.id}
@@ -170,7 +162,7 @@ const ShoppingItemsPage = () => {
                       value={item.id}
                       checked={item.completed}
                       onChange={() => handleCompleted(item.id, item.completed)}
-                      className={textAndCheckboxSytle}
+                      className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                     />
                   </div>
                 </Flipped>
@@ -182,7 +174,10 @@ const ShoppingItemsPage = () => {
                   key={`${item.id}-checked`}
                   onAppear={onElementAppear}
                 >
-                  <div key={item.id} className={checkedStyle}>
+                  <div
+                    key={item.id}
+                    className="opacity-50 flex justify-between items-center py-2 mb-2 bg-gray-100"
+                  >
                     <span>{item.product.name}</span>
                     <input
                       id={item.id}

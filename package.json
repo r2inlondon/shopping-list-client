@@ -15,7 +15,8 @@
     "react-dom": "^18.2.0",
     "react-flip-toolkit": "^7.0.17",
     "react-router-dom": "^6.8.1",
-    "sort-by": "^1.2.0"
+    "sort-by": "^1.2.0",
+    "turnstone": "^2.2.0"
   },
   "devDependencies": {
     "@types/react": "^18.0.27",
