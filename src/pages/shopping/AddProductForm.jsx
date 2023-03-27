@@ -5,7 +5,7 @@ import Turnstone from "turnstone";
 
 const AddProductForm = ({ addProduct, setShowModal }) => {
   const [product, setProduct] = useState("");
-  // const inputRef = useRef(null);
+  const inputRef = useRef(null);
   const [submitting, setSubmitting] = useState(false);
   const [productsCatalog, setProductsCatalog] = useState([]);
   const axiosPrivate = useAxiosPrivate();
@@ -18,9 +18,9 @@ const AddProductForm = ({ addProduct, setShowModal }) => {
     addProduct(trimmedNamed);
   };
 
-  // useEffect(() => {
-  //   inputRef.current.focus();
-  // }, []);
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -50,20 +50,26 @@ const AddProductForm = ({ addProduct, setShowModal }) => {
     {
       displayField: "name",
       data: productsCatalog,
-      searchType: "startswith",
+      searchType: "contains",
     },
   ];
 
-  const styles = {
+  const turnstoneStyle = {
     input: "w-full border border-gray-300 rounded-md p-2 w-full",
     listbox:
       "w-full bg-white sm:border sm:border-blue-300 sm:rounded text-left sm:mt-2 p-2 sm:drop-shadow-xl",
+    highlightedItem:
+      "cursor-pointer p-1.5 text-lg overflow-ellipsis overflow-hidden text-slate-700 rounded bg-blue-50",
+    item: "cursor-pointer p-1.5 text-lg overflow-ellipsis overflow-hidden text-slate-700",
   };
 
   return (
     <div className="h-56 w-full">
       {submitting && (
-        <div role="status" className="h-full flex justify-center items-center">
+        <div
+          role="status"
+          className="h-full w-60 flex justify-center items-center m-auto"
+        >
           <Spinning msg={"Submitting"} />
         </div>
       )}
@@ -74,11 +80,13 @@ const AddProductForm = ({ addProduct, setShowModal }) => {
               <div className="w-full mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                 <div className="mt-2">
                   <Turnstone
+                    id="fruitveg"
                     onChange={(e) => setProduct(e)}
                     listbox={listbox}
                     matchText={true}
-                    placeholder="Type a fruit or vegetable"
-                    styles={styles}
+                    placeholder="Type shopping list item"
+                    styles={turnstoneStyle}
+                    ref={inputRef}
                   />
                 </div>
               </div>
