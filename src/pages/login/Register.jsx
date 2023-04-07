@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { validateEmail } from "../../utils/validateLogin";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import axios from "../../api/axios";
 
@@ -65,7 +65,7 @@ const Register = () => {
 
   return (
     <div className="h-full flex justify-center items-center">
-      <div className="w-80 bg-white p-6 rounded-lg shadow-md py-16">
+      <div className="w-80 backdrop-blur-sm p-6 rounded-lg shadow-md py-16">
         <div>
           {errMsg && (
             <p
@@ -179,6 +179,12 @@ const Register = () => {
             </button>
           </div>
         </form>
+        <div className="my-4">
+          Back to
+          <Link to="/home">
+            <span className="text-blue-600 px-2">Login</span>
+          </Link>
+        </div>
       </div>
     </div>
   );

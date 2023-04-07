@@ -2,7 +2,7 @@ import { Outlet } from "react-router-dom";
 
 const Root = () => {
   return (
-    <main className="h-screen bg-slate-50 ">
+    <main className="h-screen bg-[url('src/assets/shoppingList-bg.jpg')] bg-cover">
       <Outlet />
     </main>
   );

@@ -57,7 +57,7 @@ const LoginComp = () => {
 
   return (
     <div className="h-full flex justify-center items-center ">
-      <div className="w-80 bg-white p-6 rounded-lg shadow-md">
+      <div className="w-80 backdrop-blur-sm p-6 rounded-lg shadow-md">
         {errMsg && (
           <p
             className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
