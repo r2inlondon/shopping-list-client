@@ -3,6 +3,7 @@ import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import { useNavigate, useLocation } from "react-router-dom";
 import ReModal from "../../components/ReModal";
 import AddListForm from "../../components/AddListForm";
+import LogoutButton from "../../components/LogoutButton";
 
 const ListsPage = () => {
   const [userLists, setUsersLists] = useState([]);
@@ -66,7 +67,7 @@ const ListsPage = () => {
       <div className="flex justify-end">
         <button
           onClick={() => setShowModal(true)}
-          className=" inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm"
+          className=" inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm"
         >
           New List +
         </button>
@@ -89,10 +90,10 @@ const ListsPage = () => {
           <h3>You don't have any lists, please create one</h3>
         )}
       </div>
-
       <ReModal showModal={showModal}>
         <AddListForm createList={createList} setShowModal={setShowModal} />
       </ReModal>
+      <LogoutButton />
     </Fragment>
   );
 };

@@ -3,6 +3,7 @@ import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import { useEffect, Fragment, useState, useRef } from "react";
 import AddProductForm from "./AddProductForm";
 import ReModal from "../../components/ReModal";
+import LogoutButton from "../../components/LogoutButton";
 import sortBy from "sort-by";
 import { Flipper, Flipped, spring } from "react-flip-toolkit";
 
@@ -197,6 +198,7 @@ const ShoppingItemsPage = () => {
       <ReModal showModal={showModal}>
         <AddProductForm addProduct={addProduct} setShowModal={setShowModal} />
       </ReModal>
+      <LogoutButton />
     </Fragment>
   );
 };

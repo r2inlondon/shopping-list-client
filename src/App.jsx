@@ -2,10 +2,10 @@ import { Routes, Route } from "react-router-dom";
 import RequireAuth from "./components/RequireAuth";
 import Root from "./layouts/Root";
 import UserHome from "./layouts/UserHome";
-import Register from "./pages/login/Register";
-import LoginComp from "./pages/login/LoginComp";
-import ListsPage from "./pages/home/ListsPage";
-import ShoppingItemsPage from "./pages/shopping/ShoppingItemsPage";
+import Register from "./pages/loginAndOutPages/Register";
+import LoginComp from "./pages/loginAndOutPages/LoginComp";
+import ListsPage from "./pages/listsPage/ListsPage";
+import ShoppingItemsPage from "./pages/shoppingItemsPage/ShoppingItemsPage";
 import NotFoundPage from "./pages/404/NotFoundPage";
 
 function App() {
