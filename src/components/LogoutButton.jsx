@@ -1,19 +1,17 @@
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import useAuth from "../hooks/useAuth";
-import { Navigate } from "react-router-dom";
 
 const LogoutButton = () => {
-  const logoutURL = import.meta.env.VITE_LOGOUT_URL;
   const axiosPrivate = useAxiosPrivate();
   const { setAuth } = useAuth();
+  const logoutURL = import.meta.env.VITE_LOGOUT_URL;
 
   const logout = async () => {
     try {
-      const response = await axiosPrivate.post(logoutURL);
+      await axiosPrivate.post(logoutURL);
       setAuth({});
-      Navigate("/");
     } catch (err) {
-      console.log(err);
+      console.log(err.message);
     }
   };
 
