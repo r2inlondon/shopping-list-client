@@ -4,6 +4,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import ReModal from "../../components/ReModal";
 import AddListForm from "../../components/AddListForm";
 import LogoutButton from "../../components/LogoutButton";
+import EllipsisVerticalMenu from "../../components/EllipsisVerticalMenu";
 
 const ListsPage = () => {
   const [userLists, setUsersLists] = useState([]);
@@ -76,13 +77,14 @@ const ListsPage = () => {
         {userLists?.length ? (
           <ul className="w-full">
             {userLists.map((list) => (
-              <li key={list.id}>
+              <li key={list.id} className="flex">
                 <button
                   onClick={() => goToList(list.id)}
                   className="mb-5 w-full inline-flex justify-center border border-transparent bg-slate-300 py-2 px-4 text-sm font-medium text-black shadow-sm hover:bg-slate-200 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
                 >
                   {list.name}
                 </button>
+                <EllipsisVerticalMenu />
               </li>
             ))}
           </ul>
