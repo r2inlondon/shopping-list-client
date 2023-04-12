@@ -35,10 +35,7 @@ const ListsPage = () => {
       }
     };
 
-    // Check if useEffect has run the first time
-    // if (effectRun.current === false) {
     getUserLists();
-    // }
 
     return () => {
       isMounted = false;
@@ -59,8 +56,29 @@ const ListsPage = () => {
     }
   };
 
-  const goToList = (listId) => {
-    navigate(`/home/ListPage/${listId}`);
+  const updateList = async (id, name) => {
+    try {
+      const renamedList = await axiosPrivate.post(`lists/${id}`, {
+        name,
+      });
+      const updatedUserLists = userLists.map((list) => {
+        if (list.id == renamedList.list.id) list.name = renamedList.list.name;
+      });
+
+      setUsersLists(updatedUserLists);
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
+
+  const deleteList = async (id) => {
+    try {
+      await axiosPrivate.delete(`/lists/${id}`);
+      const updatedUserLists = userLists.filter((list) => list.id !== id);
+      setUsersLists(updatedUserLists);
+    } catch (err) {
+      console.error(err.message);
+    }
   };
 
   return (
@@ -77,14 +95,17 @@ const ListsPage = () => {
         {userLists?.length ? (
           <ul className="w-full">
             {userLists.map((list) => (
-              <li key={list.id} className="flex">
-                <button
-                  onClick={() => goToList(list.id)}
-                  className="mb-5 w-full inline-flex justify-center border border-transparent bg-slate-300 py-2 px-4 text-sm font-medium text-black shadow-sm hover:bg-slate-200 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+              <li key={list.id} className="flex mb-5">
+                <div
+                  onClick={() => navigate(`/home/ListPage/${list.id}`)}
+                  className="w-full inline-flex justify-center bg-item-green py-2 px-4 text-sm font-medium text-black hover:bg-slate-200 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
                 >
                   {list.name}
-                </button>
-                <EllipsisVerticalMenu />
+                </div>
+                <EllipsisVerticalMenu
+                  deleteList={deleteList}
+                  listId={list.id}
+                />
               </li>
             ))}
           </ul>

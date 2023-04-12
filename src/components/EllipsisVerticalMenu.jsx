@@ -5,11 +5,11 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-const EllipsisVerticalMenu = () => {
+const EllipsisVerticalMenu = ({ deleteList, listId, setShowModal }) => {
   return (
     <Menu as="div" className="relative inline-block text-left">
       <div>
-        <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 px-3 py-2 text-sm font-semibold text-gray-900">
+        <Menu.Button className="inline-flex w-full justify-center bg-item-green gap-x-1.5 px-3 py-2 text-sm font-semibold text-gray-900">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -40,28 +40,32 @@ const EllipsisVerticalMenu = () => {
           <div className="py-1">
             <Menu.Item>
               {({ active }) => (
-                <a
-                  href="#"
+                <div
+                  onClick={() => setShowModal(true)}
                   className={classNames(
-                    active ? "bg-gray-100 text-gray-900" : "text-gray-700",
+                    active
+                      ? "bg-gray-100 text-gray-900 cursor-pointer"
+                      : "text-gray-700",
                     "block px-4 py-2 text-sm"
                   )}
                 >
                   Rename
-                </a>
+                </div>
               )}
             </Menu.Item>
             <Menu.Item>
               {({ active }) => (
-                <a
-                  href="#"
+                <div
+                  onClick={() => deleteList(listId)}
                   className={classNames(
-                    active ? "bg-gray-100 text-gray-900" : "text-gray-700",
+                    active
+                      ? "bg-gray-100 text-gray-900 cursor-pointer"
+                      : "text-gray-700",
                     "block px-4 py-2 text-sm"
                   )}
                 >
-                  Delete
-                </a>
+                  <p className="text-rose-500">Delete</p>
+                </div>
               )}
             </Menu.Item>
           </div>
