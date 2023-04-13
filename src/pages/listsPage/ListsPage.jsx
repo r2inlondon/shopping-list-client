@@ -14,6 +14,7 @@ const ListsPage = () => {
   const effectRun = useRef(false);
   const [showModal, setShowModal] = useState(false);
   const [isLoading, setIsLoading] = useState("");
+  const [renamedList, setRenamedList] = useState({});
 
   useEffect(() => {
     let isMounted = true;
@@ -45,6 +46,7 @@ const ListsPage = () => {
   }, [isLoading]);
 
   const createList = async (newListName) => {
+    setRenamedList({});
     try {
       const response = await axiosPrivate.post("lists/new", {
         name: newListName,
@@ -58,17 +60,29 @@ const ListsPage = () => {
 
   const updateList = async (id, name) => {
     try {
-      const renamedList = await axiosPrivate.post(`lists/${id}`, {
+      const response = await axiosPrivate.put(`lists/${id}`, {
         name,
       });
       const updatedUserLists = userLists.map((list) => {
-        if (list.id == renamedList.list.id) list.name = renamedList.list.name;
+        if (list.id == response.data.id) list.name = response.data.name;
+        return list;
       });
-
       setUsersLists(updatedUserLists);
+      setShowModal(false);
     } catch (err) {
       console.error(err.message);
     }
+  };
+
+  const handleRename = (listId) => {
+    const listToRename = userLists.find((list) => list.id == listId);
+    setRenamedList(listToRename);
+    setShowModal(true);
+  };
+
+  const handleCancelModal = () => {
+    setRenamedList({});
+    setShowModal(false);
   };
 
   const deleteList = async (id) => {
@@ -105,6 +119,7 @@ const ListsPage = () => {
                 <EllipsisVerticalMenu
                   deleteList={deleteList}
                   listId={list.id}
+                  handleRename={handleRename}
                 />
               </li>
             ))}
@@ -114,7 +129,18 @@ const ListsPage = () => {
         )}
       </div>
       <ReModal showModal={showModal}>
-        <AddListForm createList={createList} setShowModal={setShowModal} />
+        {renamedList.id ? (
+          <AddListForm
+            handleList={updateList}
+            handleCancelModal={handleCancelModal}
+            renamedList={renamedList}
+          />
+        ) : (
+          <AddListForm
+            handleList={createList}
+            handleCancelModal={handleCancelModal}
+          />
+        )}
       </ReModal>
       <LogoutButton />
     </Fragment>

@@ -1,22 +1,25 @@
 import { useState, useRef, useEffect } from "react";
 
-const AddListForm = ({ createList, setShowModal }) => {
-  const [newListName, setNewListName] = useState("");
+const AddListForm = ({ handleList, handleCancelModal, renamedList = {} }) => {
+  const [newListName, setNewListName] = useState("" || renamedList.name);
   const inputRef = useRef(null);
 
   useEffect(() => {
     inputRef.current.focus();
   }, []);
 
-  const handleList = (e) => {
+  const handleListFunction = (e) => {
     e.preventDefault();
 
     const trimmedNamed = newListName.trim();
-    createList(trimmedNamed);
+
+    renamedList.id
+      ? handleList(renamedList.id, trimmedNamed)
+      : handleList(trimmedNamed);
   };
 
   return (
-    <form onSubmit={handleList}>
+    <form onSubmit={handleListFunction}>
       <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
         <div className="sm:flex sm:items-start">
           <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
@@ -44,7 +47,7 @@ const AddListForm = ({ createList, setShowModal }) => {
         <button
           type="button"
           className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
-          onClick={() => setShowModal(false)}
+          onClick={() => handleCancelModal()}
         >
           Cancel
         </button>

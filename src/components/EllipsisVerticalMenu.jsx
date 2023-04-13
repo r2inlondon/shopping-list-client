@@ -5,7 +5,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-const EllipsisVerticalMenu = ({ deleteList, listId, setShowModal }) => {
+const EllipsisVerticalMenu = ({ deleteList, listId, handleRename }) => {
   return (
     <Menu as="div" className="relative inline-block text-left">
       <div>
@@ -41,7 +41,7 @@ const EllipsisVerticalMenu = ({ deleteList, listId, setShowModal }) => {
             <Menu.Item>
               {({ active }) => (
                 <div
-                  onClick={() => setShowModal(true)}
+                  onClick={() => handleRename(listId)}
                   className={classNames(
                     active
                       ? "bg-gray-100 text-gray-900 cursor-pointer"
