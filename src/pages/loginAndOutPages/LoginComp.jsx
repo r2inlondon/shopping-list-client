@@ -3,6 +3,7 @@ import { useState } from "react";
 import { validateEmail } from "../../utils/validateLogin";
 import axios from "../../api/axios";
 import useAuth from "../../hooks/useAuth";
+import ErrorMessage from "../../components/ErrorMessage";
 
 const LoginComp = () => {
   const loginURL = import.meta.env.VITE_LOGIN_URL;
@@ -44,7 +45,7 @@ const LoginComp = () => {
         setErrMsg("No Server Response");
       }
       if (err.response?.status === 400) {
-        setErrMsg("Login Failed");
+        setErrMsg("Login failed");
       }
       if (err.response?.status === 403) {
         setErrMsg("Email not found, please register");
@@ -57,15 +58,8 @@ const LoginComp = () => {
 
   return (
     <div className="h-full flex justify-center items-center ">
-      <div className="w-80 backdrop-blur-sm p-6 rounded-lg shadow-md">
-        {errMsg && (
-          <p
-            className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
-            role="alert"
-          >
-            {errMsg}
-          </p>
-        )}
+      <div className="relative w-80 backdrop-blur-sm p-6 rounded-lg shadow-md">
+        {errMsg && <ErrorMessage errMsg={errMsg} setErrMsg={setErrMsg} />}
         <form onSubmit={handleSubmit}>
           <label className="block text-md font-medium text-gray-700">
             Email Address

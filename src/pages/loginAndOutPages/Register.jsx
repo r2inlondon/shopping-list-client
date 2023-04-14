@@ -3,6 +3,7 @@ import { validateEmail } from "../../utils/validateLogin";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import axios from "../../api/axios";
+import ErrorMessage from "../../components/ErrorMessage";
 
 const Register = () => {
   const registerURL = import.meta.env.VITE_REGISTER_URL;
@@ -50,6 +51,7 @@ const Register = () => {
       // navigate("/userDashboard");
       navigate(from, { replace: true });
     } catch (err) {
+      console.log(err.response.error);
       if (!err?.response) {
         setErrMsg("No Server Response");
       }
@@ -66,16 +68,7 @@ const Register = () => {
   return (
     <div className="h-full flex justify-center items-center">
       <div className="w-80 backdrop-blur-sm p-6 rounded-lg shadow-md py-16">
-        <div>
-          {errMsg && (
-            <p
-              className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
-              role="alert"
-            >
-              {errMsg}
-            </p>
-          )}
-        </div>
+        {errMsg && <ErrorMessage errMsg={errMsg} setErrMsg={setErrMsg} />}
         <form onSubmit={handleSubmit}>
           <div className="flex justify-between">
             <div>
