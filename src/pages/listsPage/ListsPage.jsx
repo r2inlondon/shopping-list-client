@@ -14,7 +14,7 @@ const ListsPage = () => {
   const effectRun = useRef(false);
   const [showModal, setShowModal] = useState(false);
   const [isLoading, setIsLoading] = useState("");
-  const [renamedList, setRenamedList] = useState({});
+  const [listPreviousName, setListPreviousName] = useState({});
 
   useEffect(() => {
     let isMounted = true;
@@ -46,7 +46,7 @@ const ListsPage = () => {
   }, [isLoading]);
 
   const createList = async (newListName) => {
-    setRenamedList({});
+    setListPreviousName({});
     try {
       const response = await axiosPrivate.post("lists/new", {
         name: newListName,
@@ -74,14 +74,14 @@ const ListsPage = () => {
     }
   };
 
-  const handleRename = (listId) => {
+  const handleListToRename = (listId) => {
     const listToRename = userLists.find((list) => list.id == listId);
-    setRenamedList(listToRename);
+    setListPreviousName(listToRename);
     setShowModal(true);
   };
 
   const handleCancelModal = () => {
-    setRenamedList({});
+    setListPreviousName({});
     setShowModal(false);
   };
 
@@ -119,7 +119,7 @@ const ListsPage = () => {
                 <EllipsisVerticalMenu
                   deleteList={deleteList}
                   listId={list.id}
-                  handleRename={handleRename}
+                  handleListToRename={handleListToRename}
                 />
               </li>
             ))}
@@ -129,11 +129,11 @@ const ListsPage = () => {
         )}
       </div>
       <ReModal showModal={showModal}>
-        {renamedList.id ? (
+        {listPreviousName.id ? (
           <AddListForm
             handleList={updateList}
             handleCancelModal={handleCancelModal}
-            renamedList={renamedList}
+            listPreviousName={listPreviousName}
           />
         ) : (
           <AddListForm

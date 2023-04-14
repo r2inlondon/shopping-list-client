@@ -1,25 +1,32 @@
 import { useState, useRef, useEffect } from "react";
 
-const AddListForm = ({ handleList, handleCancelModal, renamedList = {} }) => {
-  const [newListName, setNewListName] = useState(renamedList.name ? renamedList.name : "");
+const AddListForm = ({ handleList, handleCancelModal, listPreviousName = {} }) => {
+  const [newListName, setNewListName] = useState(listPreviousName.name ? listPreviousName.name : "");
   const inputRef = useRef(null);
 
   useEffect(() => {
     inputRef.current.focus();
   }, []);
 
-  const handleListFunction = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     const trimmedNamed = newListName.trim();
 
-    renamedList.id
-      ? handleList(renamedList.id, trimmedNamed)
+    const whiteSpace = new RegExp(/^\s/);
+
+    if(whiteSpace.test(trimmedNamed) || trimmedNamed.length === 0) {
+      console.log("Invalid name");
+      return;
+    }
+
+    listPreviousName.id
+      ? handleList(listPreviousName.id, trimmedNamed)
       : handleList(trimmedNamed);
   };
 
   return (
-    <form onSubmit={handleListFunction}>
+    <form onSubmit={handleSubmit}>
       <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
         <div className="sm:flex sm:items-start">
           <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
