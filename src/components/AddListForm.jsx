@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 
 const AddListForm = ({ handleList, handleCancelModal, renamedList = {} }) => {
-  const [newListName, setNewListName] = useState("" || renamedList.name);
+  const [newListName, setNewListName] = useState(renamedList.name ? renamedList.name : "");
   const inputRef = useRef(null);
 
   useEffect(() => {
