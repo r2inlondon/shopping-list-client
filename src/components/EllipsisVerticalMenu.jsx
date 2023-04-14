@@ -5,7 +5,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-const EllipsisVerticalMenu = ({ deleteList, listId, handleRename }) => {
+const EllipsisVerticalMenu = ({ deleteList, listId, handleListToRename }) => {
   return (
     <Menu as="div" className="relative inline-block text-left">
       <div>
@@ -41,7 +41,7 @@ const EllipsisVerticalMenu = ({ deleteList, listId, handleRename }) => {
             <Menu.Item>
               {({ active }) => (
                 <div
-                  onClick={() => handleRename(listId)}
+                  onClick={() => handleListToRename(listId)}
                   className={classNames(
                     active
                       ? "bg-gray-100 text-gray-900 cursor-pointer"
