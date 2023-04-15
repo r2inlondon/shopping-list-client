@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import Spinning from "../../components/Spinning";
 import Turnstone from "turnstone";
+import ErrorMessage from "../../components/ErrorMessage";
 
 const AddProductForm = ({ addProduct, setShowModal }) => {
   const [product, setProduct] = useState("");
@@ -9,10 +10,18 @@ const AddProductForm = ({ addProduct, setShowModal }) => {
   const [submitting, setSubmitting] = useState(false);
   const [productsCatalog, setProductsCatalog] = useState([]);
   const axiosPrivate = useAxiosPrivate();
+  const [errMsg, setErrMsg] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const trimmedNamed = product.trim();
+
+    const whiteSpace = new RegExp(/^\s/);
+
+    if (whiteSpace.test(trimmedNamed) || trimmedNamed.length === 0) {
+      setErrMsg("Invalid name");
+      return;
+    }
 
     setSubmitting(true);
     addProduct(trimmedNamed);
@@ -73,6 +82,7 @@ const AddProductForm = ({ addProduct, setShowModal }) => {
           <Spinning msg={"Submitting"} />
         </div>
       )}
+      {errMsg && <ErrorMessage errMsg={errMsg} setErrMsg={setErrMsg} />}
       {!submitting && (
         <form onSubmit={handleSubmit}>
           <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
