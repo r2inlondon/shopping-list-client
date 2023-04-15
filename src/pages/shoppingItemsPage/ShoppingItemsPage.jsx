@@ -155,7 +155,10 @@ const ShoppingItemsPage = () => {
                   flipId={item.id}
                   onAppear={onElementAppear}
                 >
-                  <div className="flex justify-between items-center h-8 mb-2 bg-lime-100">
+                  <div
+                    onClick={() => handleCompleted(item.id, item.completed)}
+                    className="flex justify-between items-center h-8 mb-2 bg-lime-100"
+                  >
                     <span>{item.product.name}</span>
                     <input
                       id={item.id}
