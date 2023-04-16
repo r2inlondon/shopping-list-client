@@ -6,6 +6,10 @@ module.exports = {
       colors: {
         "item-green": "rgba(183, 255,165, .6)",
       },
+      height: {
+        90: "90vh",
+        95: "95vh",
+      },
     },
   },
   plugins: [],

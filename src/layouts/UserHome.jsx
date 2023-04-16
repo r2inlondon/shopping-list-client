@@ -3,7 +3,7 @@ import { Fragment } from "react";
 
 const UserHome = () => (
   <Fragment>
-    <div className="w-11/12 h-full m-auto relative">
+    <div className="w-11/12 h-screen md:h-95  m-auto relative">
       <div className="h-24 m-auto bg-gray-400">
         <h1>Shopping List App</h1>
       </div>
