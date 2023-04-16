@@ -157,7 +157,7 @@ const ShoppingItemsPage = () => {
                 >
                   <div
                     onClick={() => handleCompleted(item.id, item.completed)}
-                    className="flex justify-between items-center h-8 mb-2 bg-lime-100"
+                    className="flex justify-between items-center py-2 mb-2 px-4 bg-item-green"
                   >
                     <span>{item.product.name}</span>
                     <input
@@ -180,7 +180,7 @@ const ShoppingItemsPage = () => {
                 >
                   <div
                     key={item.id}
-                    className="opacity-50 flex justify-between items-center py-2 mb-2 bg-gray-100"
+                    className="opacity-50 flex justify-between items-center px-4 py-2 mb-2 bg-gray-100"
                   >
                     <span>{item.product.name}</span>
                     <input
