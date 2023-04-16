@@ -5,6 +5,7 @@ import ReModal from "../../components/ReModal";
 import AddListForm from "../../components/AddListForm";
 import LogoutButton from "../../components/LogoutButton";
 import EllipsisVerticalMenu from "../../components/EllipsisVerticalMenu";
+import useAuth from "../../hooks/useAuth";
 
 const ListsPage = () => {
   const [userLists, setUsersLists] = useState([]);
@@ -15,6 +16,7 @@ const ListsPage = () => {
   const [showModal, setShowModal] = useState(false);
   const [isLoading, setIsLoading] = useState("");
   const [listPreviousName, setListPreviousName] = useState({});
+  const { setAuth } = useAuth();
 
   useEffect(() => {
     let isMounted = true;
@@ -95,6 +97,14 @@ const ListsPage = () => {
     }
   };
 
+  const navigateToList = (listId, listName) => {
+    setAuth((prevState) => ({
+      ...prevState,
+      listName,
+    }));
+    navigate(`/home/ListPage/${listId}`);
+  };
+
   return (
     <Fragment>
       <div className="flex justify-end">
@@ -111,7 +121,7 @@ const ListsPage = () => {
             {userLists.map((list) => (
               <li key={list.id} className="flex mb-5">
                 <div
-                  onClick={() => navigate(`/home/ListPage/${list.id}`)}
+                  onClick={() => navigateToList(list.id, list.name)}
                   className="w-full inline-flex justify-center bg-item-green py-2 px-4 text-sm font-medium text-black hover:bg-slate-200 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
                 >
                   {list.name}
