@@ -57,7 +57,7 @@ const LoginComp = () => {
   };
 
   return (
-    <div className="h-full flex justify-center items-center ">
+    <div className="h-full w-full flex justify-center items-center">
       <div className="relative w-80 backdrop-blur-sm p-6 rounded-lg shadow-md">
         {errMsg && <ErrorMessage errMsg={errMsg} setErrMsg={setErrMsg} />}
         <form onSubmit={handleSubmit}>
