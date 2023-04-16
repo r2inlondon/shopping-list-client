@@ -6,6 +6,7 @@ import ReModal from "../../components/ReModal";
 import LogoutButton from "../../components/LogoutButton";
 import sortBy from "sort-by";
 import { Flipper, Flipped, spring } from "react-flip-toolkit";
+import useAuth from "../../hooks/useAuth";
 
 const ShoppingItemsPage = () => {
   let { listId } = useParams();
@@ -16,6 +17,7 @@ const ShoppingItemsPage = () => {
   const [showModal, setShowModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [errMsg, setErrMsg] = useState("");
+  const { setAuth } = useAuth();
 
   useEffect(() => {
     let isMounted = true;
@@ -112,12 +114,20 @@ const ShoppingItemsPage = () => {
     });
   };
 
+  const backHome = () => {
+    setAuth((prevState) => ({
+      ...prevState,
+      listName: "",
+    }));
+    navigate("/home/ListPage/");
+  };
+
   return (
     <Fragment>
       <div className="flex justify-between mb-4">
         <button
           tabIndex={1}
-          onClick={() => navigate("/home/ListPage/")}
+          onClick={() => backHome()}
           className="inline-flex justify-center border border-transparent bg-slate-300 py-2 px-4 text-sm font-medium text-black shadow-sm hover:bg-slate-200 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
         >
           Home

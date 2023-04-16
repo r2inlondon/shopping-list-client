@@ -60,7 +60,7 @@ const LoginComp = () => {
     <div className="h-full w-full ">
       <div className="h-1/5 flex justify-center items-center">
         <div className="h-16 w-72 bg-item-green flex justify-center items-center">
-          <h1 className="text-3xl font-semibold">Shopping list app</h1>
+          <h1 className="text-3xl">Shopping list app</h1>
         </div>
       </div>
       <div className="h-3/5 flex justify-center items-center">
