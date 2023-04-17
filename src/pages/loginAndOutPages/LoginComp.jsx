@@ -57,12 +57,7 @@ const LoginComp = () => {
   };
 
   return (
-    <div className="h-full w-full ">
-      <div className="h-1/5 flex justify-center items-center">
-        <div className="h-16 w-72 bg-item-green flex justify-center items-center">
-          <h1 className="text-3xl">Shopping list app</h1>
-        </div>
-      </div>
+    <div className="h-5/6 w-full ">
       <div className="h-3/5 flex justify-center items-center">
         <div className="relative w-80 backdrop-blur-sm p-6 rounded-lg shadow-md">
           {errMsg && <ErrorMessage errMsg={errMsg} setErrMsg={setErrMsg} />}

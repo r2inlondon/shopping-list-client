@@ -7,6 +7,7 @@ module.exports = {
         "item-green": "rgba(183, 255,165, .6)",
       },
       height: {
+        "10%": "10%",
         90: "90vh",
         95: "95vh",
       },
