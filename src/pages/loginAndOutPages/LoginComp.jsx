@@ -39,7 +39,8 @@ const LoginComp = () => {
       const accessToken = response?.data?.accessToken;
       setAuth({ email, accessToken });
       setErrMsg("");
-      navigate(from, { replace: true });
+      // navigate(from, { replace: true });
+      navigate("/home/ListPage/");
     } catch (err) {
       if (!err?.response) {
         setErrMsg("No Server Response");
