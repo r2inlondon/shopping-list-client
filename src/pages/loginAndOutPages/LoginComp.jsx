@@ -59,16 +59,16 @@ const LoginComp = () => {
 
   return (
     <div className="h-5/6 w-full ">
-      <div className="h-3/5 flex justify-center items-center">
-        <div className="relative w-80 backdrop-blur-sm p-6 rounded-lg shadow-md">
+      <div className="h-3/5 md:h-2/3 flex justify-center items-end">
+        <div className="relative w-80 md:w-full backdrop-blur-sm p-6 rounded-lg shadow-md">
           {errMsg && <ErrorMessage errMsg={errMsg} setErrMsg={setErrMsg} />}
           <form onSubmit={handleSubmit}>
-            <label className="block text-md font-medium text-gray-700">
+            <label className="block text-md md:text-lg font-medium text-white md:text-gray-600">
               Email Address
             </label>
 
             <input
-              className="my-4 block w-full rounded-md border-gray-500 shadow-md focus:border-indigo-500 focus:ring-indigo-500 sm:text-md"
+              className="my-4 md:my-6 py-1 block w-full rounded-md border-gray-500 shadow-md focus:border-indigo-500 focus:ring-indigo-500 text-md md:text-xl"
               type="text"
               value={userCred.email}
               onChange={(e) =>
@@ -80,10 +80,10 @@ const LoginComp = () => {
               // autoComplete="new-password"
             />
 
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-md md:text-lg font-medium text-white md:text-gray-600">
               Password
               <input
-                className="my-4 block w-full rounded-md border-gray-500 shadow-md focus:border-indigo-500 focus:ring-indigo-500 sm:text-md"
+                className="my-4 md:my-6 py-1 block w-full rounded-md border-gray-500 shadow-md focus:border-indigo-500 focus:ring-indigo-500 text-sm md:text-xl"
                 type="password"
                 autoComplete="new-password"
                 value={userCred.password}
@@ -95,16 +95,16 @@ const LoginComp = () => {
                 }}
               />
             </label>
-            <div className="flex justify-between">
+            <div className="my-4 md:my-6 flex justify-between">
               <button
                 type="submit"
-                className="w-full inline-flex justify-center rounded-md border border-transparent bg-green-400 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+                className="w-full inline-flex justify-center rounded-md border border-transparent bg-green-400 py-2 px-4 text-sm md:text-lg text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
               >
                 Login
               </button>
             </div>
           </form>
-          <div className="my-4">
+          <div>
             Need an account?
             <Link to="/register">
               <span className="text-blue-600 px-2">SignUp</span>

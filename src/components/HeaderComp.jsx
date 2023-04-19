@@ -10,8 +10,8 @@ const HeaderComp = () => {
     location.pathname === "/register";
 
   return (
-    <h1 className="h-4/6 w-screen text-3xl bg-item-green flex items-center justify-center">
-      {isMainTitle ? "Shopping List App" : auth.listName}
+    <h1 className="h-4/6 md:h-3/6 w-full text-3xl bg-item-green flex items-center justify-center">
+      {isMainTitle ? "App" : auth.listName}
     </h1>
   );
 };
