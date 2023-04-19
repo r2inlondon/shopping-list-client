@@ -60,10 +60,10 @@ const LoginComp = () => {
   return (
     <div className="h-5/6 w-full ">
       <div className="h-3/5 md:h-2/3 flex justify-center items-end">
-        <div className="relative w-80 md:w-full backdrop-blur-sm p-6 rounded-lg shadow-md">
+        <div className="relative w-full backdrop-blur-sm p-6 rounded-lg shadow-md">
           {errMsg && <ErrorMessage errMsg={errMsg} setErrMsg={setErrMsg} />}
           <form onSubmit={handleSubmit}>
-            <label className="block text-md md:text-lg font-medium text-white md:text-gray-600">
+            <label className="block text-md md:text-lg font-medium text-txt-pri-color">
               Email Address
             </label>
 
@@ -83,7 +83,7 @@ const LoginComp = () => {
             <label className="block text-md md:text-lg font-medium text-white md:text-gray-600">
               Password
               <input
-                className="my-4 md:my-6 py-1 block w-full rounded-md border-gray-500 shadow-md focus:border-indigo-500 focus:ring-indigo-500 text-sm md:text-xl"
+                className="my-4 md:my-6 py-1 block w-full rounded-md border-gray-500 shadow-md focus:border-indigo-500 focus:ring-indigo-500 text-md md:text-xl"
                 type="password"
                 autoComplete="new-password"
                 value={userCred.password}
@@ -104,8 +104,8 @@ const LoginComp = () => {
               </button>
             </div>
           </form>
-          <div>
-            Need an account?
+          <div className="flex">
+            <p className="text-gray-600">Need an account?</p>
             <Link to="/register">
               <span className="text-blue-600 px-2">SignUp</span>
             </Link>

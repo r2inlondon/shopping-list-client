@@ -66,17 +66,17 @@ const Register = () => {
   };
 
   return (
-    <div className="h-3/5 w-full flex justify-center items-end">
-      <div className="w-80 backdrop-blur-sm p-6 rounded-lg shadow-md py-16">
+    <div className="h-3/4 md:h-4/6 w-full flex justify-center items-end">
+      <div className="w-full backdrop-blur-sm p-6 rounded-lg shadow-md">
         {errMsg && <ErrorMessage errMsg={errMsg} setErrMsg={setErrMsg} />}
         <form onSubmit={handleSubmit}>
           <div className="flex justify-between">
             <div>
-              <label className="block text-md font-medium text-gray-700">
+              <label className="block text-md md:text-lg text-white font-medium md:text-gray-700">
                 First name
               </label>
               <input
-                className="my-4 block w-full rounded-md border-gray-500 shadow-md focus:border-indigo-500 focus:ring-indigo-500 sm:text-md"
+                className="my-4 md:my-6 py-1 block w-11/12 rounded-md border-gray-500 shadow-md focus:border-indigo-500 focus:ring-indigo-500 text-md md:text-xl"
                 type="text"
                 name="firstName"
                 value={newUser.firstName}
@@ -90,11 +90,11 @@ const Register = () => {
               />
             </div>
             <div>
-              <label className="block text-md font-medium text-gray-700">
+              <label className="block text-md font-medium md:text-lg text-white md:text-gray-700">
                 Last name
               </label>
               <input
-                className="my-4 block w-full rounded-md border-gray-500 shadow-md focus:border-indigo-500 focus:ring-indigo-500 sm:text-md"
+                className="my-4 md:my-6 py-1 block w-full  rounded-md border-gray-500 shadow-md focus:border-indigo-500 focus:ring-indigo-500 text-md md:text-xl"
                 type="text"
                 name="lastName"
                 value={newUser.lastName}
@@ -110,11 +110,11 @@ const Register = () => {
             </div>
           </div>
 
-          <label className="block text-md font-medium text-gray-700">
+          <label className="block text-md font-medium md:text-lg text-white md:text-gray-700">
             Email Address
           </label>
           <input
-            className="my-4 block w-full rounded-md border-gray-500 shadow-md focus:border-indigo-500 focus:ring-indigo-500 sm:text-md"
+            className="my-4 md:my-6 py-1 block w-full rounded-md border-gray-500 shadow-md focus:border-indigo-500 focus:ring-indigo-500 text-md md:text-xl"
             type="text"
             name="email"
             autoComplete="password"
@@ -128,10 +128,10 @@ const Register = () => {
             required
           />
 
-          <label className="block text-sm font-medium text-gray-700">
+          <label className="block text-md font-medium md:text-lg text-white md:text-gray-700">
             Password
             <input
-              className="my-4 block w-full rounded-md border-gray-500 shadow-md focus:border-indigo-500 focus:ring-indigo-500 sm:text-md"
+              className="my-4 md:my-6 py-1 block w-full rounded-md border-gray-500 shadow-md focus:border-indigo-500 focus:ring-indigo-500 text-md md:text-xl"
               type="password"
               name="password"
               autoComplete="new-password"
@@ -146,10 +146,10 @@ const Register = () => {
             />
           </label>
 
-          <label className="block text-sm font-medium text-gray-700">
+          <label className="block text-md font-medium md:text-lg text-white md:text-gray-700">
             Confirm Password
             <input
-              className="my-4 block w-full rounded-md border-gray-500 shadow-md focus:border-indigo-500 focus:ring-indigo-500 sm:text-md"
+              className="my-4 md:my-6 py-1 block w-full rounded-md border-gray-500 shadow-md focus:border-indigo-500 focus:ring-indigo-500 text-md md:text-xl"
               type="password"
               name="password"
               autoComplete="new-password"
@@ -166,14 +166,14 @@ const Register = () => {
           <div className="flex justify-between">
             <button
               type="submit"
-              className=" w-full inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+              className=" my-4 md:my-6 py-1 w-full inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
             >
               SignUp
             </button>
           </div>
         </form>
-        <div className="my-4">
-          Back to
+        <div className="my-4 flex">
+          <p className="text-white md:text-gray-600">Back to</p>
           <Link to="/home">
             <span className="text-blue-600 px-2">Login</span>
           </Link>
