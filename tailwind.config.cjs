@@ -6,6 +6,8 @@ module.exports = {
       colors: {
         "primary-color": "var(--primary-color)",
         "txt-pri-color": "var(--txt-pri-color)",
+        "btn-color": "var(--btn-color)",
+        "btn-color-hover": "var(--btn-color-hover)",
       },
       height: {
         "10%": "10%",

@@ -93,7 +93,7 @@ const LoginComp = () => {
             <div className="my-6 md:my-8 flex justify-between">
               <button
                 type="submit"
-                className="w-full inline-flex justify-center rounded-md border border-transparent bg-green-400 py-2 px-4 text-sm md:text-lg font-semibold text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+                className="w-full inline-flex justify-center rounded-md border border-transparent py-2 px-4 text-sm md:text-lg font-semibold text-white shadow-sm bg-btn-color hover:bg-btn-color-hover focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
               >
                 Login
               </button>
