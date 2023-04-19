@@ -4,7 +4,8 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        "item-green": "rgba(183, 255,165, .6)",
+        "primary-color": "var(--primary-color)",
+        "txt-pri-color": "var(--txt-pri-color)",
       },
       height: {
         "10%": "10%",
