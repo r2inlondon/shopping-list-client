@@ -107,10 +107,10 @@ const ListsPage = () => {
 
   return (
     <Fragment>
-      <div className="flex justify-end">
+      <div className="flex justify-end mb-4 md:mb-6">
         <button
           onClick={() => setShowModal(true)}
-          className=" inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm"
+          className=" inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-btn-color hover:bg-btn-color-hover text-base font-semibold text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto text-sm md:text-lg"
         >
           New List +
         </button>
@@ -119,12 +119,15 @@ const ListsPage = () => {
         {userLists?.length ? (
           <ul className="w-full">
             {userLists.map((list) => (
-              <li key={list.id} className="flex mb-5">
+              <li
+                key={list.id}
+                className="flex mb-8 md:mb-10 hover:scale-105 duration-300 "
+              >
                 <div
                   onClick={() => navigateToList(list.id, list.name)}
-                  className="w-full inline-flex justify-center bg-item-green py-2 px-4 text-sm font-medium text-black hover:bg-slate-200 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+                  className="w-full inline-flex justify-center bg-primary-color py-2 px-4 text-sm font-medium text-black focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 cursor-pointer"
                 >
-                  {list.name}
+                  <p className="text-md md:text-xl font-bold">{list.name}</p>
                 </div>
                 <EllipsisVerticalMenu
                   deleteList={deleteList}
