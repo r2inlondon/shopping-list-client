@@ -66,19 +66,17 @@ const Register = () => {
   };
 
   return (
-    <div className="h-3/4 md:h-4/6 w-full flex justify-center items-end">
+    <div className="h-3/4 md:h-4/6 w-full flex justify-center items-center">
       <div className="w-full backdrop-blur-sm p-6 rounded-lg shadow-md">
         {errMsg && <ErrorMessage errMsg={errMsg} setErrMsg={setErrMsg} />}
         <form onSubmit={handleSubmit}>
-          <div className="flex justify-between">
+          <div className="flex justify-between my-6 md:my-8">
             <div>
-              <label className="block text-md md:text-lg text-white font-medium md:text-gray-700">
-                First name
-              </label>
               <input
-                className="my-4 md:my-6 py-1 block w-11/12 rounded-md border-gray-500 shadow-md focus:border-indigo-500 focus:ring-indigo-500 text-md md:text-xl"
+                className="py-1 pl-2 w-11/12 rounded-md border-gray-500 shadow-md focus:border-indigo-500 focus:ring-indigo-500 text-md md:text-xl"
                 type="text"
                 name="firstName"
+                placeholder="First name"
                 value={newUser.firstName}
                 onChange={(e) => {
                   setNewUser((prevState) => ({
@@ -90,13 +88,11 @@ const Register = () => {
               />
             </div>
             <div>
-              <label className="block text-md font-medium md:text-lg text-white md:text-gray-700">
-                Last name
-              </label>
               <input
-                className="my-4 md:my-6 py-1 block w-full  rounded-md border-gray-500 shadow-md focus:border-indigo-500 focus:ring-indigo-500 text-md md:text-xl"
+                className="py-1 pl-2 w-full  rounded-md border-gray-500 shadow-md focus:border-indigo-500 focus:ring-indigo-500 text-md md:text-xl"
                 type="text"
                 name="lastName"
+                placeholder="Last name"
                 value={newUser.lastName}
                 autoComplete="new-password"
                 onChange={(e) => {
@@ -110,14 +106,12 @@ const Register = () => {
             </div>
           </div>
 
-          <label className="block text-md font-medium md:text-lg text-white md:text-gray-700">
-            Email Address
-          </label>
           <input
-            className="my-4 md:my-6 py-1 block w-full rounded-md border-gray-500 shadow-md focus:border-indigo-500 focus:ring-indigo-500 text-md md:text-xl"
+            className="my-6 md:my-8 py-1 pl-2 block w-full rounded-md border-gray-500 shadow-md focus:border-indigo-500 focus:ring-indigo-500 text-md md:text-xl"
             type="text"
             name="email"
             autoComplete="password"
+            placeholder="Email"
             value={newUser.email}
             onChange={(e) => {
               setNewUser((prevState) => ({
@@ -128,54 +122,49 @@ const Register = () => {
             required
           />
 
-          <label className="block text-md font-medium md:text-lg text-white md:text-gray-700">
-            Password
-            <input
-              className="my-4 md:my-6 py-1 block w-full rounded-md border-gray-500 shadow-md focus:border-indigo-500 focus:ring-indigo-500 text-md md:text-xl"
-              type="password"
-              name="password"
-              autoComplete="new-password"
-              value={newUser.password}
-              onChange={(e) => {
-                setNewUser((prevState) => ({
-                  ...prevState,
-                  password: e.target.value,
-                }));
-              }}
-              required
-            />
-          </label>
+          <input
+            className="my-6 md:my-8 py-1 pl-2 block w-full rounded-md border-gray-500 shadow-md focus:border-indigo-500 focus:ring-indigo-500 text-md md:text-xl"
+            type="password"
+            placeholder="Password"
+            autoComplete="new-password"
+            value={newUser.password}
+            onChange={(e) => {
+              setNewUser((prevState) => ({
+                ...prevState,
+                password: e.target.value,
+              }));
+            }}
+            required
+          />
 
-          <label className="block text-md font-medium md:text-lg text-white md:text-gray-700">
-            Confirm Password
-            <input
-              className="my-4 md:my-6 py-1 block w-full rounded-md border-gray-500 shadow-md focus:border-indigo-500 focus:ring-indigo-500 text-md md:text-xl"
-              type="password"
-              name="password"
-              autoComplete="new-password"
-              value={newUser.confirmPassword}
-              onChange={(e) => {
-                setNewUser((prevState) => ({
-                  ...prevState,
-                  confirmPassword: e.target.value,
-                }));
-              }}
-              required
-            />
-          </label>
+          <input
+            className="my-6 md:my-8 py-1 pl-2 block w-full rounded-md border-gray-500 shadow-md focus:border-indigo-500 focus:ring-indigo-500 text-md md:text-xl"
+            type="password"
+            name="password"
+            autoComplete="new-password"
+            placeholder="Confirm password"
+            value={newUser.confirmPassword}
+            onChange={(e) => {
+              setNewUser((prevState) => ({
+                ...prevState,
+                confirmPassword: e.target.value,
+              }));
+            }}
+            required
+          />
           <div className="flex justify-between">
             <button
               type="submit"
-              className=" my-4 md:my-6 py-1 w-full inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+              className=" my-6 md:my-8 py-1 w-full inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-semibold text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
             >
-              SignUp
+              Sign Up
             </button>
           </div>
         </form>
-        <div className="my-4 flex">
-          <p className="text-white md:text-gray-600">Back to</p>
+        <div className="my-4 flex justify-center">
+          <p className="text-txt-pri-color text-md md:text-xl">Back to</p>
           <Link to="/home">
-            <span className="text-blue-600 px-2">Login</span>
+            <span className="text-blue-600 px-2 text-md md:text-xl">Login</span>
           </Link>
         </div>
       </div>

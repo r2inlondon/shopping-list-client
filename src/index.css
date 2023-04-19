@@ -3,6 +3,6 @@
 @tailwind utilities;
 
 :root {
-  --primary-color: rgba(183, 255, 165, 6);
-  --txt-pri-color: rgb(118, 125, 134);
+  --primary-color: rgba(183, 255, 165, 0.726);
+  --txt-pri-color: rgb(75, 85, 99);
 }

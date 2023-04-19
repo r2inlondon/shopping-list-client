@@ -63,14 +63,11 @@ const LoginComp = () => {
         <div className="relative w-full backdrop-blur-sm p-6 rounded-lg shadow-md">
           {errMsg && <ErrorMessage errMsg={errMsg} setErrMsg={setErrMsg} />}
           <form onSubmit={handleSubmit}>
-            <label className="block text-md md:text-lg font-medium text-txt-pri-color">
-              Email Address
-            </label>
-
             <input
-              className="my-4 md:my-6 py-1 block w-full rounded-md border-gray-500 shadow-md focus:border-indigo-500 focus:ring-indigo-500 text-md md:text-xl"
+              className="my-6 md:my-8 py-1 pl-2 block w-full rounded-md border-gray-500 shadow-md focus:border-indigo-500 focus:ring-indigo-500 text-md md:text-xl"
               type="text"
               value={userCred.email}
+              placeholder="Email address"
               onChange={(e) =>
                 setUserCred((prevState) => ({
                   ...prevState,
@@ -80,32 +77,30 @@ const LoginComp = () => {
               // autoComplete="new-password"
             />
 
-            <label className="block text-md md:text-lg font-medium text-white md:text-gray-600">
-              Password
-              <input
-                className="my-4 md:my-6 py-1 block w-full rounded-md border-gray-500 shadow-md focus:border-indigo-500 focus:ring-indigo-500 text-md md:text-xl"
-                type="password"
-                autoComplete="new-password"
-                value={userCred.password}
-                onChange={(e) => {
-                  setUserCred((prevState) => ({
-                    ...prevState,
-                    password: e.target.value,
-                  }));
-                }}
-              />
-            </label>
-            <div className="my-4 md:my-6 flex justify-between">
+            <input
+              className="my-6 md:my-8 py-1 pl-2 block w-full rounded-md border-gray-500 shadow-md focus:border-indigo-500 focus:ring-indigo-500 text-md md:text-xl"
+              type="password"
+              autoComplete="new-password"
+              placeholder="Password"
+              value={userCred.password}
+              onChange={(e) => {
+                setUserCred((prevState) => ({
+                  ...prevState,
+                  password: e.target.value,
+                }));
+              }}
+            />
+            <div className="my-6 md:my-8 flex justify-between">
               <button
                 type="submit"
-                className="w-full inline-flex justify-center rounded-md border border-transparent bg-green-400 py-2 px-4 text-sm md:text-lg text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+                className="w-full inline-flex justify-center rounded-md border border-transparent bg-green-400 py-2 px-4 text-sm md:text-lg font-semibold text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
               >
                 Login
               </button>
             </div>
           </form>
-          <div className="flex">
-            <p className="text-gray-600">Need an account?</p>
+          <div className="flex justify-center">
+            <p className="text-txt-pri-color">Need an account?</p>
             <Link to="/register">
               <span className="text-blue-600 px-2">SignUp</span>
             </Link>
