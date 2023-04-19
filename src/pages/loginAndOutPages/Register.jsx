@@ -66,7 +66,7 @@ const Register = () => {
   };
 
   return (
-    <div className="h-full w-full flex justify-center items-center">
+    <div className="h-3/5 w-full flex justify-center items-end">
       <div className="w-80 backdrop-blur-sm p-6 rounded-lg shadow-md py-16">
         {errMsg && <ErrorMessage errMsg={errMsg} setErrMsg={setErrMsg} />}
         <form onSubmit={handleSubmit}>
