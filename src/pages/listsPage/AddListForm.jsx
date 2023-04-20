@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import ErrorMessage from "./ErrorMessage";
+import ErrorMessage from "../../components/ErrorMessage";
 import { Fragment } from "react";
 
 const AddListForm = ({
@@ -38,33 +38,29 @@ const AddListForm = ({
     <Fragment>
       {errMsg && <ErrorMessage errMsg={errMsg} setErrMsg={setErrMsg} />}
       <form onSubmit={handleSubmit}>
-        <div className="px-4 pb-4 sm:p-6 sm:pb-4">
+        <div className="px-4 pt-4 sm:p-6 sm:pb-4">
           <div className="sm:flex sm:items-start">
-            <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-              <div className="mt-2">
-                <input
-                  className="border border-gray-300 rounded-md p-2 w-full"
-                  type="text"
-                  placeholder="Enter list name"
-                  required
-                  value={newListName}
-                  onChange={(e) => setNewListName(e.target.value)}
-                  ref={inputRef}
-                />
-              </div>
-            </div>
+            <input
+              className="border border-gray-300 rounded-md p-2 w-full"
+              type="text"
+              placeholder="Enter list name"
+              required
+              value={newListName}
+              onChange={(e) => setNewListName(e.target.value)}
+              ref={inputRef}
+            />
           </div>
         </div>
-        <div className="px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+        <div className="mx-4 sm:mx-0 my-4 sm:px-6 sm:flex sm:flex-row-reverse">
           <button
             type="submit"
-            className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm"
+            className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 mb-4 bg-btn-color text-base font-medium text-white hover:bg-btn-color-hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:text-sm transition-colors duration-200"
           >
             Submit
           </button>
           <button
             type="button"
-            className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
+            className="w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 mb-4 bg-white text-base font-medium text-red-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white sm:ml-3 sm:text-sm transition-colors duration-200"
             onClick={() => handleCancelModal()}
           >
             Cancel

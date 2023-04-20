@@ -93,16 +93,20 @@ const LoginComp = () => {
             <div className="my-6 md:my-8 flex justify-between">
               <button
                 type="submit"
-                className="w-full inline-flex justify-center rounded-md border border-transparent py-2 px-4 text-sm md:text-lg font-semibold text-white shadow-sm bg-btn-color hover:bg-btn-color-hover focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+                className="w-full inline-flex justify-center rounded-md border border-transparent py-2 px-4 text-sm md:text-lg font-semibold text-white shadow-sm bg-btn-color hover:bg-btn-color-hover focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition-colors duration-200"
               >
                 Login
               </button>
             </div>
           </form>
           <div className="flex justify-center">
-            <p className="text-txt-pri-color text-sm md:text-lg">Need an account?</p>
+            <p className="text-txt-pri-color text-sm md:text-lg">
+              Need an account?
+            </p>
             <Link to="/register">
-              <span className="text-blue-600 px-2 text-sm md:text-lg">SignUp</span>
+              <span className="text-blue-600 px-2 text-sm md:text-lg">
+                SignUp
+              </span>
             </Link>
           </div>
         </div>
