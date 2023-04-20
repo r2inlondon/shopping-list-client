@@ -2,7 +2,7 @@ import { useState, useEffect, useRef, Fragment } from "react";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import { useNavigate, useLocation } from "react-router-dom";
 import ReModal from "../../components/ReModal";
-import AddListForm from "../../components/AddListForm";
+import AddListForm from "./AddListForm";
 import LogoutButton from "../../components/LogoutButton";
 import EllipsisVerticalMenu from "../../components/EllipsisVerticalMenu";
 import useAuth from "../../hooks/useAuth";
@@ -110,7 +110,7 @@ const ListsPage = () => {
       <div className="flex justify-end mb-4 md:mb-6">
         <button
           onClick={() => setShowModal(true)}
-          className=" inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-btn-color hover:bg-btn-color-hover text-base font-semibold text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto text-sm md:text-lg"
+          className=" inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-btn-color hover:bg-btn-color-hover text-base font-semibold text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto text-sm md:text-lg transition-colors duration-200"
         >
           New List +
         </button>
@@ -121,7 +121,7 @@ const ListsPage = () => {
             {userLists.map((list) => (
               <li
                 key={list.id}
-                className="flex mb-8 md:mb-10 hover:scale-105 duration-300 "
+                className="flex mb-8 hover:scale-105 duration-300 "
               >
                 <div
                   onClick={() => navigateToList(list.id, list.name)}
