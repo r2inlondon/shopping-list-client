@@ -58,7 +58,7 @@ const LoginComp = () => {
   };
 
   return (
-    <div className="h-5/6 w-full ">
+    <div className="h-4/5 w-full ">
       <div className="h-3/5 md:h-2/3 flex justify-center items-end">
         <div className="relative w-full backdrop-blur-sm p-6 rounded-lg shadow-md">
           {errMsg && <ErrorMessage errMsg={errMsg} setErrMsg={setErrMsg} />}
@@ -100,9 +100,9 @@ const LoginComp = () => {
             </div>
           </form>
           <div className="flex justify-center">
-            <p className="text-txt-pri-color">Need an account?</p>
+            <p className="text-txt-pri-color text-sm md:text-lg">Need an account?</p>
             <Link to="/register">
-              <span className="text-blue-600 px-2">SignUp</span>
+              <span className="text-blue-600 px-2 text-sm md:text-lg">SignUp</span>
             </Link>
           </div>
         </div>
