@@ -64,7 +64,7 @@ const LoginComp = () => {
           {errMsg && <ErrorMessage errMsg={errMsg} setErrMsg={setErrMsg} />}
           <form onSubmit={handleSubmit}>
             <input
-              className="my-6 md:my-8 py-1 pl-2 block w-full rounded-md border-gray-500 shadow-md focus:border-indigo-500 focus:ring-indigo-500 text-md md:text-xl"
+              className="my-6 md:my-8 py-1 pl-2 block w-full rounded-md border-gray-500 shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-200 focus:shadow-lg focus:shadow-green-900 text-md md:text-xl"
               type="text"
               value={userCred.email}
               placeholder="Email address"
@@ -78,7 +78,7 @@ const LoginComp = () => {
             />
 
             <input
-              className="my-6 md:my-8 py-1 pl-2 block w-full rounded-md border-gray-500 shadow-md focus:border-indigo-500 focus:ring-indigo-500 text-md md:text-xl"
+              className="my-6 md:my-8 py-1 pl-2 block w-full rounded-md border-gray-500 shadow-md focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-200 focus:shadow-lg focus:shadow-green-900 text-md md:text-xl"
               type="password"
               autoComplete="new-password"
               placeholder="Password"
@@ -93,7 +93,7 @@ const LoginComp = () => {
             <div className="my-6 md:my-8 flex justify-between">
               <button
                 type="submit"
-                className="w-full inline-flex justify-center rounded-md border border-transparent py-2 px-4 text-sm md:text-lg font-semibold text-white shadow-sm bg-btn-color hover:bg-btn-color-hover focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition-colors duration-200"
+                className="w-full inline-flex justify-center rounded-md border border-transparent py-2 px-4 text-sm md:text-lg font-semibold text-white shadow-sm bg-btn-color hover:bg-btn-color-hover focus:outline-cyan-500 focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition-colors duration-200"
               >
                 Login
               </button>
