@@ -41,7 +41,7 @@ const AddListForm = ({
         <div className="px-4 pt-4 sm:p-6 sm:pb-4">
           <div className="sm:flex sm:items-start">
             <input
-              className="border border-gray-300 rounded-md p-2 w-full text-sm md:text-lg"
+              className="border border-gray-300 rounded-md p-2 w-full text-sm md:text-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
               type="text"
               placeholder="Enter list name"
               required

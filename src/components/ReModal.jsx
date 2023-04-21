@@ -13,7 +13,7 @@ const ReModal = ({ showModal, children }) => {
               className="fixed inset-0 transition-opacity"
               aria-hidden="true"
             >
-              <div className="absolute inset-0 backdrop-blur-sm"></div>
+              <div className="absolute inset-0 backdrop-blur-sm brightness-50"></div>
             </div>
 
             <span

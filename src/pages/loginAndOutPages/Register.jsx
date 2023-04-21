@@ -73,7 +73,7 @@ const Register = () => {
           <div className="flex justify-between my-6 md:my-8">
             <div>
               <input
-                className="py-1 pl-2 w-11/12 rounded-md border-gray-500 shadow-md focus:border-indigo-500 focus:ring-indigo-500 text-md md:text-xl"
+                className="py-1 pl-2 w-11/12 rounded-md border-gray-500 shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-200 focus:shadow-lg focus:shadow-green-900 text-md md:text-xl"
                 type="text"
                 name="firstName"
                 placeholder="First name"
@@ -89,7 +89,7 @@ const Register = () => {
             </div>
             <div>
               <input
-                className="py-1 pl-2 w-full  rounded-md border-gray-500 shadow-md focus:border-indigo-500 focus:ring-indigo-500 text-md md:text-xl"
+                className="py-1 pl-2 w-full  rounded-md border-gray-500 shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-200 focus:shadow-lg focus:shadow-green-900 text-md md:text-xl"
                 type="text"
                 name="lastName"
                 placeholder="Last name"
@@ -107,7 +107,7 @@ const Register = () => {
           </div>
 
           <input
-            className="my-6 md:my-8 py-1 pl-2 block w-full rounded-md border-gray-500 shadow-md focus:border-indigo-500 focus:ring-indigo-500 text-md md:text-xl"
+            className="my-6 md:my-8 py-1 pl-2 block w-full rounded-md border-gray-500 shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-200 focus:shadow-lg focus:shadow-green-900 text-md md:text-xl"
             type="text"
             name="email"
             autoComplete="password"
@@ -123,7 +123,7 @@ const Register = () => {
           />
 
           <input
-            className="my-6 md:my-8 py-1 pl-2 block w-full rounded-md border-gray-500 shadow-md focus:border-indigo-500 focus:ring-indigo-500 text-md md:text-xl"
+            className="my-6 md:my-8 py-1 pl-2 block w-full rounded-md border-gray-500 shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-200 focus:shadow-lg focus:shadow-green-900 text-md md:text-xl"
             type="password"
             placeholder="Password"
             autoComplete="new-password"
@@ -138,7 +138,7 @@ const Register = () => {
           />
 
           <input
-            className="my-6 md:my-8 py-1 pl-2 block w-full rounded-md border-gray-500 shadow-md focus:border-indigo-500 focus:ring-indigo-500 text-md md:text-xl"
+            className="my-6 md:my-8 py-1 pl-2 block w-full rounded-md border-gray-500 shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-200 focus:shadow-lg focus:shadow-green-900 text-md md:text-xl"
             type="password"
             name="password"
             autoComplete="new-password"
