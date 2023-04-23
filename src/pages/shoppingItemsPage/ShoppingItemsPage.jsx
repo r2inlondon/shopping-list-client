@@ -7,6 +7,7 @@ import LogoutButton from "../../components/LogoutButton";
 import sortBy from "sort-by";
 import { Flipper, Flipped, spring } from "react-flip-toolkit";
 import useAuth from "../../hooks/useAuth";
+import { Transition } from "@headlessui/react";
 
 const ShoppingItemsPage = () => {
   let { listId } = useParams();
@@ -16,6 +17,7 @@ const ShoppingItemsPage = () => {
   const effectRun = useRef(false);
   const [showModal, setShowModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isShowing, setIsShowing] = useState(true);
   const [errMsg, setErrMsg] = useState("");
   const { setAuth } = useAuth();
 
@@ -119,98 +121,118 @@ const ShoppingItemsPage = () => {
       ...prevState,
       listName: "",
     }));
-    navigate("/home/ListPage/");
+
+    setIsShowing(false);
+
+    setTimeout(() => {
+      navigate("/home/ListPage/");
+    }, 300);
   };
 
   return (
     <Fragment>
-      <div className="flex justify-between mb-4">
-        <button
-          tabIndex={1}
-          onClick={() => backHome()}
-          className="inline-flex justify-center border border-transparent bg-slate-300 py-2 px-4 text-sm font-medium text-black shadow-sm hover:bg-slate-200 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
-        >
-          Home
-        </button>
-        <button
-          tabIndex={2}
-          onClick={() => deleteCompleted()}
-          className="inline-flex justify-center border border-transparent bg-slate-300 py-2 px-4 text-sm font-medium text-black shadow-sm hover:bg-slate-200 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
-        >
-          Clear
-        </button>
-        <button
-          tabIndex={3}
-          onClick={() => setShowModal(true)}
-          className="inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm"
-        >
-          Add Product +
-        </button>
-      </div>
-      {errMsg && (
-        <p
-          className="bg-red-100 border border-red-400 text-red-700 px-4 rounded relative"
-          role="alert"
-        >
-          {errMsg}
-        </p>
-      )}
-      <Flipper flipKey={listItems.length}>
-        {listItems.length > 0 &&
-          listItems.map((item, index) => {
-            if (!item.completed) {
-              return (
-                <Flipped
-                  key={item.id}
-                  flipId={item.id}
-                  onAppear={onElementAppear}
-                >
-                  <div
-                    onClick={() => handleCompleted(item.id, item.completed)}
-                    className="flex justify-between items-center py-2 mb-2 px-4 bg-item-green"
-                  >
-                    <span>{item.product.name}</span>
-                    <input
-                      id={item.id}
-                      type="checkbox"
-                      value={item.id}
-                      checked={item.completed}
-                      onChange={() => handleCompleted(item.id, item.completed)}
-                      className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                    />
-                  </div>
-                </Flipped>
-              );
-            } else {
-              return (
-                <Flipped
-                  flipId={`${item.id}-checked`}
-                  key={`${item.id}-checked`}
-                  onAppear={onElementAppear}
-                >
-                  <div
+      <Transition
+        appear={isShowing}
+        show={isShowing}
+        enter="transform duration-500"
+        enterFrom={"-translate-x-14 opacity-0"}
+        enterTo="translate-x-0 opacity-100"
+        leave="transform duration-500"
+        leaveFrom="translate-x-0"
+        leaveTo={"filter -translate-x-8 opacity-0"}
+      >
+        <div className="flex justify-between mb-4">
+          <button
+            tabIndex={1}
+            onClick={() => backHome()}
+            className="inline-flex justify-center border border-transparent bg-slate-300 py-2 px-4 text-sm font-medium text-black shadow-sm hover:bg-slate-200 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+          >
+            Home
+          </button>
+          <button
+            tabIndex={2}
+            onClick={() => deleteCompleted()}
+            className="inline-flex justify-center border border-transparent bg-slate-300 py-2 px-4 text-sm font-medium text-black shadow-sm hover:bg-slate-200 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+          >
+            Clear
+          </button>
+          <button
+            tabIndex={3}
+            onClick={() => setShowModal(true)}
+            className="inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm"
+          >
+            Add Product +
+          </button>
+        </div>
+        {errMsg && (
+          <p
+            className="bg-red-100 border border-red-400 text-red-700 px-4 rounded relative"
+            role="alert"
+          >
+            {errMsg}
+          </p>
+        )}
+        <Flipper flipKey={listItems.length}>
+          {listItems.length > 0 &&
+            listItems.map((item, index) => {
+              if (!item.completed) {
+                return (
+                  <Flipped
                     key={item.id}
-                    className="opacity-50 flex justify-between items-center px-4 py-2 mb-2 bg-gray-100"
+                    flipId={item.id}
+                    onAppear={onElementAppear}
                   >
-                    <span>{item.product.name}</span>
-                    <input
-                      id={item.id}
-                      type="checkbox"
-                      value={item.id}
-                      checked={item.completed}
-                      onChange={() => handleCompleted(item.id, item.completed)}
-                      className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                    />
-                  </div>
-                </Flipped>
-              );
-            }
-          })}
-      </Flipper>
-      {listItems.length === 0 && <h3>Shopping List is empty</h3>}
-      <ReModal showModal={showModal}>
-        <AddProductForm addProduct={addProduct} setShowModal={setShowModal} />
-      </ReModal>
+                    <div
+                      onClick={() => handleCompleted(item.id, item.completed)}
+                      className="flex justify-between items-center py-2 mb-2 px-4 bg-item-green"
+                    >
+                      <span>{item.product.name}</span>
+                      <input
+                        id={item.id}
+                        type="checkbox"
+                        value={item.id}
+                        checked={item.completed}
+                        onChange={() =>
+                          handleCompleted(item.id, item.completed)
+                        }
+                        className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                      />
+                    </div>
+                  </Flipped>
+                );
+              } else {
+                return (
+                  <Flipped
+                    flipId={`${item.id}-checked`}
+                    key={`${item.id}-checked`}
+                    onAppear={onElementAppear}
+                  >
+                    <div
+                      key={item.id}
+                      className="opacity-50 flex justify-between items-center px-4 py-2 mb-2 bg-gray-100"
+                    >
+                      <span>{item.product.name}</span>
+                      <input
+                        id={item.id}
+                        type="checkbox"
+                        value={item.id}
+                        checked={item.completed}
+                        onChange={() =>
+                          handleCompleted(item.id, item.completed)
+                        }
+                        className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                      />
+                    </div>
+                  </Flipped>
+                );
+              }
+            })}
+        </Flipper>
+        {listItems.length === 0 && <h3>Shopping List is empty</h3>}
+        <ReModal showModal={showModal}>
+          <AddProductForm addProduct={addProduct} setShowModal={setShowModal} />
+        </ReModal>
+      </Transition>
       <LogoutButton />
     </Fragment>
   );
