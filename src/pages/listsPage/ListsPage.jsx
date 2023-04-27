@@ -137,7 +137,7 @@ const ListsPage = () => {
               {userLists.map((list) => (
                 <li
                   key={list.id}
-                  className="flex mb-8 hover:scale-105 duration-300 "
+                  className="flex mb-8 hover:scale-105 duration-300"
                 >
                   <div
                     onClick={() => navigateToList(list.id, list.name)}

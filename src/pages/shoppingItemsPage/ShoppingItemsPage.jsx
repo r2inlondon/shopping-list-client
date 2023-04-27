@@ -3,7 +3,6 @@ import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import { useEffect, Fragment, useState, useRef } from "react";
 import AddProductForm from "./AddProductForm";
 import ReModal from "../../components/ReModal";
-import LogoutButton from "../../components/LogoutButton";
 import sortBy from "sort-by";
 import useAuth from "../../hooks/useAuth";
 import { Transition } from "@headlessui/react";
@@ -104,16 +103,16 @@ const ShoppingItemsPage = () => {
     }
   };
 
-  const onElementAppear = (el, index) => {
-    const isChecked = el.childNodes[1].checked;
-    spring({
-      onUpdate: (val) => {
-        el.style.opacity = !isChecked ? val : val / 2;
-        el.style.transform = `scale(${val})`;
-      },
-      delay: index * 10,
-    });
-  };
+  // const onElementAppear = (el, index) => {
+  //   const isChecked = el.childNodes[1].checked;
+  //   spring({
+  //     onUpdate: (val) => {
+  //       el.style.opacity = !isChecked ? val : val / 2;
+  //       el.style.transform = `scale(${val})`;
+  //     },
+  //     delay: index * 10,
+  //   });
+  // };
 
   const backHome = () => {
     setAuth((prevState) => ({
@@ -144,21 +143,25 @@ const ShoppingItemsPage = () => {
           <button
             tabIndex={1}
             onClick={() => backHome()}
-            className="inline-flex justify-center border border-transparent bg-slate-300 py-2 px-4 text-sm font-medium text-black shadow-sm hover:bg-slate-200 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+            className="inline-flex justify-center border border-transparent bg-btn-color hover:bg-btn-color-hover text-sm font-medium text-black shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 py-2 px-4"
           >
-            Home
-          </button>
-          <button
-            tabIndex={2}
-            onClick={() => deleteCompleted()}
-            className="inline-flex justify-center border border-transparent bg-slate-300 py-2 px-4 text-sm font-medium text-black shadow-sm hover:bg-slate-200 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
-          >
-            Clear
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24 "
+              className="transition duration-300 transform hover:scale-125"
+            >
+              <path
+                fill="white"
+                d="m12 20l-8-8l8-8l1.425 1.4l-5.6 5.6H20v2H7.825l5.6 5.6L12 20Z"
+              />
+            </svg>
           </button>
           <button
             tabIndex={3}
             onClick={() => setShowModal(true)}
-            className="inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm"
+            className="inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-btn-color text-base font-medium text-white hover:bg-btn-color-hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm"
           >
             Add Product +
           </button>
@@ -171,56 +174,70 @@ const ShoppingItemsPage = () => {
             {errMsg}
           </p>
         )}
-          {listItems.length > 0 &&
-            listItems.map((item, index) => {
-              if (!item.completed) {
-                return (
-                    <div
-                      onClick={() => handleCompleted(item.id, item.completed)}
-                      className="flex justify-between items-center py-2 mb-2 md:mb-4 px-4 bg-primary-color hover:scale-105 duration-300 cursor-pointer"
-                    >
-                      <span>{item.product.name}</span>
-                      <input
-                        id={item.id}
-                        type="checkbox"
-                        value={item.id}
-                        checked={item.completed}
-                        onChange={() =>
-                          handleCompleted(item.id, item.completed)
-                        }
-                        className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                      />
-                    </div>
-                );
-              } else {
-                return (
-                    <div
-                      key={item.id}
-                      onClick={() => handleCompleted(item.id, item.completed)}
-                      className="opacity-50 flex justify-between items-center px-4 py-2 mb-2 bg-gray-100 cursor-pointer"
-                    >
-                      <span>{item.product.name}</span>
-                      <input
-                        id={item.id}
-                        type="checkbox"
-                        value={item.id}
-                        checked={item.completed}
-                        onChange={() =>
-                          handleCompleted(item.id, item.completed)
-                        }
-                        className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                      />
-                    </div>
-                );
-              }
-            })}
+        {listItems.length > 0 &&
+          listItems.map((item, index) => {
+            if (!item.completed) {
+              return (
+                <div
+                  onClick={() => handleCompleted(item.id, item.completed)}
+                  className="flex justify-between items-center py-2 mb-2 md:mb-4 px-4 bg-primary-color hover:scale-105 duration-300 cursor-pointer"
+                >
+                  <span>{item.product.name}</span>
+                  <input
+                    id={item.id}
+                    type="checkbox"
+                    value={item.id}
+                    checked={item.completed}
+                    onChange={() => handleCompleted(item.id, item.completed)}
+                    className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                  />
+                </div>
+              );
+            } else {
+              return (
+                <div
+                  key={item.id}
+                  onClick={() => handleCompleted(item.id, item.completed)}
+                  className="opacity-50 flex justify-between items-center px-4 py-2 mb-2 md:mb-4 bg-gray-100 cursor-pointer"
+                >
+                  <span>{item.product.name}</span>
+                  <input
+                    id={item.id}
+                    type="checkbox"
+                    value={item.id}
+                    checked={item.completed}
+                    onChange={() => handleCompleted(item.id, item.completed)}
+                    className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                  />
+                </div>
+              );
+            }
+          })}
 
         {listItems.length === 0 && <h3>Shopping List is empty</h3>}
       </Transition>
-      <LogoutButton />
-       <ReModal showModal={showModal}>
-          <AddProductForm addProduct={addProduct} setShowModal={setShowModal} />
-        </ReModal>
+      <div className="flex justify-end absolute bottom-10 right-0">
+        <button
+          tabIndex={2}
+          onClick={() => deleteCompleted()}
+          className="inline-flex justify-center border border-transparent bg-orange-600 hover:bg-orange-700 py-2 px-4 text-sm font-medium text-black shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 256 256"
+          >
+            <path
+              fill="white"
+              d="M208.49 191.51a12 12 0 0 1-17 17L128 145l-63.51 63.49a12 12 0 0 1-17-17L111 128L47.51 64.49a12 12 0 0 1 17-17L128 111l63.51-63.52a12 12 0 0 1 17 17L145 128Z"
+            />
+          </svg>
+        </button>
+      </div>
+      <ReModal showModal={showModal}>
+        <AddProductForm addProduct={addProduct} setShowModal={setShowModal} />
+      </ReModal>
     </Fragment>
   );
 };
