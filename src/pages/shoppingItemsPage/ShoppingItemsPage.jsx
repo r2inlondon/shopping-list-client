@@ -147,10 +147,11 @@ const ShoppingItemsPage = () => {
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
+              width="30"
+              height="30"
               viewBox="0 0 24 24 "
               className="transition duration-300 transform hover:scale-125"
+              transform="scale(0.8333333333)"
             >
               <path
                 fill="white"
@@ -161,9 +162,9 @@ const ShoppingItemsPage = () => {
           <button
             tabIndex={3}
             onClick={() => setShowModal(true)}
-            className="inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-btn-color text-base font-medium text-white hover:bg-btn-color-hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm"
+            className="inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-btn-color text-base font-medium text-white hover:bg-btn-color-hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto text-sm md:text-lg"
           >
-            Add Product +
+            Add item +
           </button>
         </div>
         {errMsg && (

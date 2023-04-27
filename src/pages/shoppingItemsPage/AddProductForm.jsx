@@ -64,7 +64,8 @@ const AddProductForm = ({ addProduct, setShowModal }) => {
   ];
 
   const turnstoneStyle = {
-    input: "w-full border border-gray-300 rounded-md p-2 w-full",
+    input:
+      "w-full border border-gray-300 rounded-md p-2 md:mb-4 w-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-200",
     listbox:
       "w-full bg-white sm:border sm:border-blue-300 sm:rounded text-left sm:mt-2 p-2 sm:drop-shadow-xl",
     highlightedItem:
@@ -85,7 +86,7 @@ const AddProductForm = ({ addProduct, setShowModal }) => {
       {errMsg && <ErrorMessage errMsg={errMsg} setErrMsg={setErrMsg} />}
       {!submitting && (
         <form onSubmit={handleSubmit}>
-          <div className="px-4 sm:p-6 sm:pb-4">
+          <div className="px-4 sm:pt-6">
             <div className="sm:flex sm:items-start">
               <div className="w-full mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                 <div className="mt-2">
@@ -102,16 +103,16 @@ const AddProductForm = ({ addProduct, setShowModal }) => {
               </div>
             </div>
           </div>
-          <div className="px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+          <div className="px-4 py-3 sm:px-6 sm:pb-6 sm:flex sm:flex-row-reverse">
             <button
               type="submit"
-              className="mt-3 w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:mt-0 sm:ml-3 sm:text-sm"
+              className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 mb-4 bg-btn-color text-sm md:text-lg font-medium text-white hover:bg-btn-color-hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:text-sm transition-colors duration-200"
             >
               Submit
             </button>
             <button
               type="button"
-              className="mt-3 w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-rose-700 text-base font-medium text-white hover:bg-rose-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:mt-0 sm:ml-3 sm:text-sm"
+              className="w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 mb-4 bg-white text-sm md:text-lg font-medium text-red-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white  sm:text-sm transition-colors duration-200"
               onClick={() => setShowModal(false)}
             >
               Cancel
