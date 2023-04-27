@@ -177,7 +177,7 @@ const ShoppingItemsPage = () => {
                 return (
                     <div
                       onClick={() => handleCompleted(item.id, item.completed)}
-                      className="flex justify-between items-center py-2 mb-2 px-4 bg-item-green"
+                      className="flex justify-between items-center py-2 mb-2 md:mb-4 px-4 bg-primary-color hover:scale-105 duration-300 cursor-pointer"
                     >
                       <span>{item.product.name}</span>
                       <input
@@ -196,7 +196,8 @@ const ShoppingItemsPage = () => {
                 return (
                     <div
                       key={item.id}
-                      className="opacity-50 flex justify-between items-center px-4 py-2 mb-2 bg-gray-100"
+                      onClick={() => handleCompleted(item.id, item.completed)}
+                      className="opacity-50 flex justify-between items-center px-4 py-2 mb-2 bg-gray-100 cursor-pointer"
                     >
                       <span>{item.product.name}</span>
                       <input
