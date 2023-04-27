@@ -157,7 +157,9 @@ const ListsPage = () => {
             <h3>You don't have any lists, please create one</h3>
           )}
         </div>
-        <ReModal showModal={showModal}>
+      </Transition>
+      <LogoutButton />
+       <ReModal showModal={showModal}>
           {listPreviousName.id ? (
             <AddListForm
               handleList={updateList}
@@ -171,8 +173,6 @@ const ListsPage = () => {
             />
           )}
         </ReModal>
-      </Transition>
-      <LogoutButton />
     </Fragment>
   );
 };

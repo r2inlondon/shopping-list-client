@@ -5,7 +5,6 @@ import AddProductForm from "./AddProductForm";
 import ReModal from "../../components/ReModal";
 import LogoutButton from "../../components/LogoutButton";
 import sortBy from "sort-by";
-import { Flipper, Flipped, spring } from "react-flip-toolkit";
 import useAuth from "../../hooks/useAuth";
 import { Transition } from "@headlessui/react";
 
@@ -172,16 +171,10 @@ const ShoppingItemsPage = () => {
             {errMsg}
           </p>
         )}
-        <Flipper flipKey={listItems.length}>
           {listItems.length > 0 &&
             listItems.map((item, index) => {
               if (!item.completed) {
                 return (
-                  <Flipped
-                    key={item.id}
-                    flipId={item.id}
-                    onAppear={onElementAppear}
-                  >
                     <div
                       onClick={() => handleCompleted(item.id, item.completed)}
                       className="flex justify-between items-center py-2 mb-2 px-4 bg-item-green"
@@ -198,15 +191,9 @@ const ShoppingItemsPage = () => {
                         className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                       />
                     </div>
-                  </Flipped>
                 );
               } else {
                 return (
-                  <Flipped
-                    flipId={`${item.id}-checked`}
-                    key={`${item.id}-checked`}
-                    onAppear={onElementAppear}
-                  >
                     <div
                       key={item.id}
                       className="opacity-50 flex justify-between items-center px-4 py-2 mb-2 bg-gray-100"
@@ -223,17 +210,16 @@ const ShoppingItemsPage = () => {
                         className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                       />
                     </div>
-                  </Flipped>
                 );
               }
             })}
-        </Flipper>
+
         {listItems.length === 0 && <h3>Shopping List is empty</h3>}
-        <ReModal showModal={showModal}>
-          <AddProductForm addProduct={addProduct} setShowModal={setShowModal} />
-        </ReModal>
       </Transition>
       <LogoutButton />
+       <ReModal showModal={showModal}>
+          <AddProductForm addProduct={addProduct} setShowModal={setShowModal} />
+        </ReModal>
     </Fragment>
   );
 };
