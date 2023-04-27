@@ -6,6 +6,7 @@ import ReModal from "../../components/ReModal";
 import sortBy from "sort-by";
 import useAuth from "../../hooks/useAuth";
 import { Transition } from "@headlessui/react";
+import DeleteCompleted from "./DeleteCompleted";
 
 const ShoppingItemsPage = () => {
   let { listId } = useParams();
@@ -102,17 +103,6 @@ const ShoppingItemsPage = () => {
       console.error(err.message);
     }
   };
-
-  // const onElementAppear = (el, index) => {
-  //   const isChecked = el.childNodes[1].checked;
-  //   spring({
-  //     onUpdate: (val) => {
-  //       el.style.opacity = !isChecked ? val : val / 2;
-  //       el.style.transform = `scale(${val})`;
-  //     },
-  //     delay: index * 10,
-  //   });
-  // };
 
   const backHome = () => {
     setAuth((prevState) => ({
@@ -217,25 +207,7 @@ const ShoppingItemsPage = () => {
 
         {listItems.length === 0 && <h3>Shopping List is empty</h3>}
       </Transition>
-      <div className="flex justify-end absolute bottom-10 right-0">
-        <button
-          tabIndex={2}
-          onClick={() => deleteCompleted()}
-          className="inline-flex justify-center border border-transparent bg-orange-600 hover:bg-orange-700 py-2 px-4 text-sm font-medium text-black shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 256 256"
-          >
-            <path
-              fill="white"
-              d="M208.49 191.51a12 12 0 0 1-17 17L128 145l-63.51 63.49a12 12 0 0 1-17-17L111 128L47.51 64.49a12 12 0 0 1 17-17L128 111l63.51-63.52a12 12 0 0 1 17 17L145 128Z"
-            />
-          </svg>
-        </button>
-      </div>
+      <DeleteCompleted deleteCompleted={deleteCompleted} />
       <ReModal showModal={showModal}>
         <AddProductForm addProduct={addProduct} setShowModal={setShowModal} />
       </ReModal>

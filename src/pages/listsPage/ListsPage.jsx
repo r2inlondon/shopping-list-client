@@ -4,7 +4,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import ReModal from "../../components/ReModal";
 import AddListForm from "./AddListForm";
 import LogoutButton from "../../components/LogoutButton";
-import EllipsisVerticalMenu from "../../components/EllipsisVerticalMenu";
+import EllipsisVerticalMenu from "./EllipsisVerticalMenu";
 import useAuth from "../../hooks/useAuth";
 import { Transition } from "@headlessui/react";
 
@@ -159,20 +159,20 @@ const ListsPage = () => {
         </div>
       </Transition>
       <LogoutButton />
-       <ReModal showModal={showModal}>
-          {listPreviousName.id ? (
-            <AddListForm
-              handleList={updateList}
-              handleCancelModal={handleCancelModal}
-              listPreviousName={listPreviousName}
-            />
-          ) : (
-            <AddListForm
-              handleList={createList}
-              handleCancelModal={handleCancelModal}
-            />
-          )}
-        </ReModal>
+      <ReModal showModal={showModal}>
+        {listPreviousName.id ? (
+          <AddListForm
+            handleList={updateList}
+            handleCancelModal={handleCancelModal}
+            listPreviousName={listPreviousName}
+          />
+        ) : (
+          <AddListForm
+            handleList={createList}
+            handleCancelModal={handleCancelModal}
+          />
+        )}
+      </ReModal>
     </Fragment>
   );
 };
