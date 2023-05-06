@@ -123,7 +123,7 @@ const ListsPage = () => {
         leaveFrom="translate-x-0"
         leaveTo={"filter translate-x-8 opacity-0"}
       >
-        <div className="flex justify-end mb-4 md:mb-6">
+        <div className="flex justify-end pt-4 sm:pt-6 mb-4 sm:mb-6">
           <button
             onClick={() => setShowModal(true)}
             className=" inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-btn-color hover:bg-btn-color-hover text-base font-semibold text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto text-sm md:text-lg transition-colors duration-200"

@@ -60,11 +60,11 @@ const LoginComp = () => {
   return (
     <div className="h-4/5 w-full ">
       <div className="h-3/5 md:h-2/3 flex justify-center items-end">
-        <div className="relative w-full p-6 rounded-lg shadow-md">
+        <div className="relative w-full p-6 ">
           {errMsg && <ErrorMessage errMsg={errMsg} setErrMsg={setErrMsg} />}
           <form onSubmit={handleSubmit}>
             <input
-              className="my-6 md:my-8 py-1 pl-2 block w-full rounded-md border-gray-500 shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-200 focus:shadow-lg focus:shadow-green-900 text-md md:text-xl"
+              className="my-6 md:my-8 py-2 pl-2 block w-full rounded-sm border-gray-500 shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-200 focus:shadow-lg focus:shadow-green-900 text-md md:text-xl"
               type="text"
               value={userCred.email}
               placeholder="Email address"
@@ -78,7 +78,7 @@ const LoginComp = () => {
             />
 
             <input
-              className="my-6 md:my-8 py-1 pl-2 block w-full rounded-md border-gray-500 shadow-md focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-200 focus:shadow-lg focus:shadow-green-900 text-md md:text-xl"
+              className="my-6 md:my-8 py-2 pl-2 block w-full rounded-md  border-gray-500 shadow-md focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-200 focus:shadow-lg focus:shadow-green-900 text-md md:text-xl"
               type="password"
               autoComplete="new-password"
               placeholder="Password"
@@ -90,7 +90,7 @@ const LoginComp = () => {
                 }));
               }}
             />
-            <div className="my-6 md:my-8 flex justify-between">
+            <div className="my-8 flex justify-between">
               <button
                 type="submit"
                 className="w-full inline-flex justify-center rounded-md border border-transparent py-2 px-4 text-sm md:text-lg font-semibold text-white shadow-sm bg-btn-color hover:bg-btn-color-hover focus:outline-cyan-500 focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition-colors duration-200"
