@@ -100,11 +100,11 @@ const LoginComp = () => {
             </div>
           </form>
           <div className="flex justify-center">
-            <p className="text-txt-pri-color text-sm md:text-lg">
+            <p className="text-txt-pri-color text-md md:text-xl">
               Need an account?
             </p>
             <Link to="/register">
-              <span className="text-blue-600 px-2 text-sm md:text-lg">
+              <span className="text-blue-600 px-2 text-md md:text-xl">
                 SignUp
               </span>
             </Link>
