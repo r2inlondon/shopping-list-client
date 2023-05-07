@@ -12,7 +12,7 @@ const EllipsisVerticalMenu = ({ deleteList, listId, handleListToRename }) => {
       className="inline-block text-left text-md md:text-xl font-bold"
     >
       <div>
-        <Menu.Button className="inline-flex w-full justify-center bg-primary-color gap-x-1.5 px-3 py-2 md:py-3 text-sm font-semibold text-gray-900">
+        <Menu.Button className="inline-flex w-full justify-center bg-primary-color gap-x-1.5 px-3 py-3 text-sm font-semibold text-gray-900">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"

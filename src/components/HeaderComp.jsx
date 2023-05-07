@@ -17,7 +17,7 @@ const HeaderComp = () => {
 
   const myShoppingLists = (
     <div className="h-4/6 md:h-3/6 w-full text-3xl flex bg-primary-color items-center justify-center">
-      My Lists
+      My shopping lists
     </div>
   );
 
