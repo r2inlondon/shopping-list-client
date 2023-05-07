@@ -4,6 +4,7 @@ import { useNavigate, useLocation, Link } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import axios from "../../api/axios";
 import ErrorMessage from "../../components/ErrorMessage";
+import { Transition } from "@headlessui/react";
 
 const Register = () => {
   const registerURL = import.meta.env.VITE_REGISTER_URL;
@@ -69,98 +70,109 @@ const Register = () => {
     <div className="h-3/4 md:h-4/6 w-full flex justify-center items-center">
       <div className="w-full p-6">
         {errMsg && <ErrorMessage errMsg={errMsg} setErrMsg={setErrMsg} />}
-        <form onSubmit={handleSubmit}>
-          <div className="flex justify-between my-6 md:my-8">
-            <div>
-              <input
-                className="py-2 pl-2 w-11/12 rounded-md border-gray-500 shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-200 focus:shadow-lg focus:shadow-green-900 text-md md:text-xl"
-                type="text"
-                name="firstName"
-                placeholder="First name"
-                value={newUser.firstName}
-                onChange={(e) => {
-                  setNewUser((prevState) => ({
-                    ...prevState,
-                    firstName: e.target.value,
-                  }));
-                }}
-                required
-              />
+        <Transition
+          appear={true}
+          show={true}
+          enter="transform duration-500"
+          enterFrom={"-translate-x-14 opacity-0"}
+          enterTo="translate-x-0 opacity-100"
+          leave="transform duration-500"
+          leaveFrom="translate-x-0"
+          leaveTo={"filter -translate-x-8 opacity-0"}
+        >
+          <form onSubmit={handleSubmit}>
+            <div className="flex justify-between my-6 md:my-8">
+              <div>
+                <input
+                  className="py-2 pl-2 w-11/12 rounded-md border-gray-500 shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-200 focus:shadow-lg focus:shadow-green-900 text-md md:text-xl"
+                  type="text"
+                  name="firstName"
+                  placeholder="First name"
+                  value={newUser.firstName}
+                  onChange={(e) => {
+                    setNewUser((prevState) => ({
+                      ...prevState,
+                      firstName: e.target.value,
+                    }));
+                  }}
+                  required
+                />
+              </div>
+              <div>
+                <input
+                  className="py-2 pl-2 w-full  rounded-md border-gray-500 shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-200 focus:shadow-lg focus:shadow-green-900 text-md md:text-xl"
+                  type="text"
+                  name="lastName"
+                  placeholder="Last name"
+                  value={newUser.lastName}
+                  autoComplete="new-password"
+                  onChange={(e) => {
+                    setNewUser((prevState) => ({
+                      ...prevState,
+                      lastName: e.target.value,
+                    }));
+                  }}
+                  required
+                />
+              </div>
             </div>
-            <div>
-              <input
-                className="py-2 pl-2 w-full  rounded-md border-gray-500 shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-200 focus:shadow-lg focus:shadow-green-900 text-md md:text-xl"
-                type="text"
-                name="lastName"
-                placeholder="Last name"
-                value={newUser.lastName}
-                autoComplete="new-password"
-                onChange={(e) => {
-                  setNewUser((prevState) => ({
-                    ...prevState,
-                    lastName: e.target.value,
-                  }));
-                }}
-                required
-              />
+
+            <input
+              className="my-6 md:my-8 py-2 pl-2 block w-full rounded-md border-gray-500 shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-200 focus:shadow-lg focus:shadow-green-900 text-md md:text-xl"
+              type="text"
+              name="email"
+              autoComplete="password"
+              placeholder="Email"
+              value={newUser.email}
+              onChange={(e) => {
+                setNewUser((prevState) => ({
+                  ...prevState,
+                  email: e.target.value,
+                }));
+              }}
+              required
+            />
+
+            <input
+              className="my-6 md:my-8 py-2 pl-2 block w-full rounded-md border-gray-500 shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-200 focus:shadow-lg focus:shadow-green-900 text-md md:text-xl"
+              type="password"
+              placeholder="Password"
+              autoComplete="new-password"
+              value={newUser.password}
+              onChange={(e) => {
+                setNewUser((prevState) => ({
+                  ...prevState,
+                  password: e.target.value,
+                }));
+              }}
+              required
+            />
+
+            <input
+              className="my-6 md:my-8 py-2 pl-2 block w-full rounded-md border-gray-500 shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-200 focus:shadow-lg focus:shadow-green-900 text-md md:text-xl"
+              type="password"
+              name="password"
+              autoComplete="new-password"
+              placeholder="Confirm password"
+              value={newUser.confirmPassword}
+              onChange={(e) => {
+                setNewUser((prevState) => ({
+                  ...prevState,
+                  confirmPassword: e.target.value,
+                }));
+              }}
+              required
+            />
+            <div className="flex justify-between">
+              <button
+                type="submit"
+                className=" my-6 md:my-8 py-2 w-full inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm md:text-lg font-semibold text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-colors duration-200"
+              >
+                Sign Up
+              </button>
             </div>
-          </div>
-
-          <input
-            className="my-6 md:my-8 py-2 pl-2 block w-full rounded-md border-gray-500 shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-200 focus:shadow-lg focus:shadow-green-900 text-md md:text-xl"
-            type="text"
-            name="email"
-            autoComplete="password"
-            placeholder="Email"
-            value={newUser.email}
-            onChange={(e) => {
-              setNewUser((prevState) => ({
-                ...prevState,
-                email: e.target.value,
-              }));
-            }}
-            required
-          />
-
-          <input
-            className="my-6 md:my-8 py-2 pl-2 block w-full rounded-md border-gray-500 shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-200 focus:shadow-lg focus:shadow-green-900 text-md md:text-xl"
-            type="password"
-            placeholder="Password"
-            autoComplete="new-password"
-            value={newUser.password}
-            onChange={(e) => {
-              setNewUser((prevState) => ({
-                ...prevState,
-                password: e.target.value,
-              }));
-            }}
-            required
-          />
-
-          <input
-            className="my-6 md:my-8 py-2 pl-2 block w-full rounded-md border-gray-500 shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-200 focus:shadow-lg focus:shadow-green-900 text-md md:text-xl"
-            type="password"
-            name="password"
-            autoComplete="new-password"
-            placeholder="Confirm password"
-            value={newUser.confirmPassword}
-            onChange={(e) => {
-              setNewUser((prevState) => ({
-                ...prevState,
-                confirmPassword: e.target.value,
-              }));
-            }}
-            required
-          />
-          <div className="flex justify-between">
-            <button
-              type="submit"
-              className=" my-6 md:my-8 py-2 w-full inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm md:text-lg font-semibold text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-colors duration-200"
-            >
-              Sign Up
-            </button>
-          </div>
-        </form>
+          </form>
+        </Transition>
         <div className="my-4 flex justify-center">
           <p className="text-txt-pri-color text-md md:text-xl">Back to</p>
           <Link to="/home">
