@@ -7,7 +7,6 @@ import sortBy from "sort-by";
 import useAuth from "../../hooks/useAuth";
 import { Transition } from "@headlessui/react";
 import DeleteCompleted from "./DeleteCompleted";
-import ErrorMessage from "../../components/ErrorMessage";
 
 const ShoppingItemsPage = () => {
   let { listId } = useParams();
@@ -18,7 +17,6 @@ const ShoppingItemsPage = () => {
   const [showModal, setShowModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isShowing, setIsShowing] = useState(true);
-  const [errMsg, setErrMsg] = useState("");
   const { setAuth } = useAuth();
 
   useEffect(() => {
@@ -64,13 +62,10 @@ const ShoppingItemsPage = () => {
         listId,
         name: item,
       });
-      setErrMsg("");
+
       setIsLoading(true);
     } catch (err) {
       console.error(err.message);
-      if (err.response?.status === 409) {
-        setErrMsg(`${item} is already on the list`);
-      }
     }
     setShowModal(false);
   };
@@ -158,7 +153,6 @@ const ShoppingItemsPage = () => {
             Add item +
           </button>
         </div>
-        {errMsg && <ErrorMessage errMsg={errMsg} setErrMsg={setErrMsg} />}
         {listItems.length > 0 &&
           listItems.map((item, index) => {
             if (!item.completed) {
@@ -204,7 +198,11 @@ const ShoppingItemsPage = () => {
       </Transition>
       <DeleteCompleted deleteCompleted={deleteCompleted} />
       <ReModal showModal={showModal}>
-        <AddProductForm addProduct={addProduct} setShowModal={setShowModal} />
+        <AddProductForm
+          addProduct={addProduct}
+          setShowModal={setShowModal}
+          listItems={listItems}
+        />
       </ReModal>
     </Fragment>
   );

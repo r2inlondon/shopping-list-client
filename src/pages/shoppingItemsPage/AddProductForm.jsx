@@ -3,8 +3,9 @@ import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import Spinning from "../../components/Spinning";
 import Turnstone from "turnstone";
 import ErrorMessage from "../../components/ErrorMessage";
+import capitalizedWord from "../../utils/capitalizedWord";
 
-const AddProductForm = ({ addProduct, setShowModal }) => {
+const AddProductForm = ({ addProduct, setShowModal, listItems }) => {
   const [product, setProduct] = useState("");
   const inputRef = useRef(null);
   const [submitting, setSubmitting] = useState(false);
@@ -23,8 +24,15 @@ const AddProductForm = ({ addProduct, setShowModal }) => {
       return;
     }
 
+    const newItem = capitalizedWord(trimmedNamed);
+
+    if (listItems.find((item) => item.product.name === newItem)) {
+      setErrMsg("Item already in list");
+      return;
+    }
+
     setSubmitting(true);
-    addProduct(trimmedNamed);
+    addProduct(newItem);
   };
 
   useEffect(() => {
@@ -78,7 +86,7 @@ const AddProductForm = ({ addProduct, setShowModal }) => {
       {submitting && (
         <div
           role="status"
-          className="h-full w-60 flex justify-center items-center m-auto"
+          className="m-auto flex h-full w-60 items-center justify-center"
         >
           <Spinning msg={"Submitting"} />
         </div>
@@ -88,7 +96,7 @@ const AddProductForm = ({ addProduct, setShowModal }) => {
         <form onSubmit={handleSubmit}>
           <div className="px-4 sm:pt-6">
             <div className="sm:flex sm:items-start">
-              <div className="w-full mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+              <div className="mt-3 w-full text-center sm:mt-0 sm:ml-4 sm:text-left">
                 <div className="mt-2">
                   <Turnstone
                     id="fruitveg"
@@ -103,16 +111,16 @@ const AddProductForm = ({ addProduct, setShowModal }) => {
               </div>
             </div>
           </div>
-          <div className="px-4 py-3 sm:px-6 sm:pb-6 sm:flex sm:flex-row-reverse">
+          <div className="px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6 sm:pb-6">
             <button
               type="submit"
-              className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 mb-4 bg-btn-color text-sm md:text-lg font-medium text-white hover:bg-btn-color-hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:text-sm transition-colors duration-200"
+              className="mb-4 inline-flex w-full justify-center rounded-md border border-transparent bg-btn-color px-4 py-2 text-sm font-medium text-white shadow-sm transition-colors duration-200 hover:bg-btn-color-hover focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 sm:ml-3 sm:text-sm md:text-lg"
             >
               Submit
             </button>
             <button
               type="button"
-              className="w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 mb-4 bg-white text-sm md:text-lg font-medium text-red-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white  sm:text-sm transition-colors duration-200"
+              className="mb-4 inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-red-700 shadow-sm transition-colors duration-200 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-white  focus:ring-offset-2 sm:text-sm md:text-lg"
               onClick={() => setShowModal(false)}
             >
               Cancel
