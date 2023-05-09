@@ -7,6 +7,7 @@ import sortBy from "sort-by";
 import useAuth from "../../hooks/useAuth";
 import { Transition } from "@headlessui/react";
 import DeleteCompleted from "./DeleteCompleted";
+import ErrorMessage from "../../components/ErrorMessage";
 
 const ShoppingItemsPage = () => {
   let { listId } = useParams();
@@ -129,18 +130,18 @@ const ShoppingItemsPage = () => {
         leaveFrom="translate-x-0"
         leaveTo={"filter -translate-x-8 opacity-0"}
       >
-        <div className="flex justify-between mb-4">
+        <div className="mb-4 flex justify-between pt-4 sm:mb-6 sm:pt-6">
           <button
             tabIndex={1}
             onClick={() => backHome()}
-            className="inline-flex justify-center border border-transparent bg-btn-color hover:bg-btn-color-hover text-sm font-medium text-black shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 py-2 px-4"
+            className="inline-flex justify-center border border-transparent bg-btn-color py-2 px-4 text-sm font-medium text-black shadow-sm hover:bg-btn-color-hover focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="30"
               height="30"
               viewBox="0 0 24 24 "
-              className="transition duration-300 transform hover:scale-125"
+              className="transform transition duration-300 hover:scale-125"
               transform="scale(0.8333333333)"
             >
               <path
@@ -152,26 +153,20 @@ const ShoppingItemsPage = () => {
           <button
             tabIndex={3}
             onClick={() => setShowModal(true)}
-            className="inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-btn-color text-base font-medium text-white hover:bg-btn-color-hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto text-sm md:text-lg"
+            className="inline-flex justify-center rounded-md border border-transparent bg-btn-color px-4 py-2 text-base text-lg font-semibold text-white shadow-sm transition-colors duration-200 hover:bg-btn-color-hover focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 sm:ml-3 sm:w-auto"
           >
             Add item +
           </button>
         </div>
-        {errMsg && (
-          <p
-            className="bg-red-100 border border-red-400 text-red-700 px-4 rounded relative"
-            role="alert"
-          >
-            {errMsg}
-          </p>
-        )}
+        {errMsg && <ErrorMessage errMsg={errMsg} setErrMsg={setErrMsg} />}
         {listItems.length > 0 &&
           listItems.map((item, index) => {
             if (!item.completed) {
               return (
                 <div
+                  key={item.id}
                   onClick={() => handleCompleted(item.id, item.completed)}
-                  className="flex justify-between items-center py-2 mb-2 md:mb-4 px-4 bg-primary-color hover:scale-105 duration-300 cursor-pointer"
+                  className="mb-2 flex cursor-pointer items-center justify-between bg-primary-color py-2 px-4 duration-300 hover:scale-105 md:mb-4"
                 >
                   <span>{item.product.name}</span>
                   <input
@@ -180,7 +175,7 @@ const ShoppingItemsPage = () => {
                     value={item.id}
                     checked={item.completed}
                     onChange={() => handleCompleted(item.id, item.completed)}
-                    className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                    className="h-4 w-4 rounded border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600"
                   />
                 </div>
               );
@@ -189,7 +184,7 @@ const ShoppingItemsPage = () => {
                 <div
                   key={item.id}
                   onClick={() => handleCompleted(item.id, item.completed)}
-                  className="opacity-50 flex justify-between items-center px-4 py-2 mb-2 md:mb-4 bg-gray-100 cursor-pointer"
+                  className="mb-2 flex cursor-pointer items-center justify-between bg-gray-100 px-4 py-2 opacity-50 md:mb-4"
                 >
                   <span>{item.product.name}</span>
                   <input
@@ -198,7 +193,7 @@ const ShoppingItemsPage = () => {
                     value={item.id}
                     checked={item.completed}
                     onChange={() => handleCompleted(item.id, item.completed)}
-                    className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                    className="h-4 w-4 rounded border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600"
                   />
                 </div>
               );
