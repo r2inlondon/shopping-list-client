@@ -35,7 +35,8 @@ const ListsPage = () => {
         console.error(err.message);
         if (err.response?.status === 403) {
           // token expired, back to login
-          navigate("/", { state: { from: location }, replace: true });
+          // navigate("/", { state: { from: location }, replace: true });
+          navigate("/");
         }
       }
     };
