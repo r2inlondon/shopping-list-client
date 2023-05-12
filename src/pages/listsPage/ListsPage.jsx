@@ -7,6 +7,7 @@ import LogoutButton from "../../components/LogoutButton";
 import EllipsisVerticalMenu from "./EllipsisVerticalMenu";
 import useAuth from "../../hooks/useAuth";
 import { Transition } from "@headlessui/react";
+import EmptyBg from "../../components/Empty";
 
 const ListsPage = () => {
   const [userLists, setUsersLists] = useState([]);
@@ -155,7 +156,7 @@ const ListsPage = () => {
               ))}
             </ul>
           ) : (
-            <h3>You don't have any lists, please create one</h3>
+            <EmptyBg title={"lists"} />
           )}
         </div>
       </Transition>
