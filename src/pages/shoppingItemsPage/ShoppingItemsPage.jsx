@@ -7,6 +7,7 @@ import sortBy from "sort-by";
 import useAuth from "../../hooks/useAuth";
 import { Transition } from "@headlessui/react";
 import DeleteCompleted from "./DeleteCompleted";
+import EmptyBackground from "../../components/EmptyBackground";
 
 const ShoppingItemsPage = () => {
   let { listId } = useParams();
@@ -194,7 +195,7 @@ const ShoppingItemsPage = () => {
             }
           })}
 
-        {listItems.length === 0 && <h3>Shopping List is empty</h3>}
+        {listItems.length === 0 && <EmptyBackground title={"shopping list"} />}
       </Transition>
       <DeleteCompleted deleteCompleted={deleteCompleted} />
       <ReModal showModal={showModal}>

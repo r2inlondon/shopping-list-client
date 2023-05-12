@@ -7,7 +7,7 @@ import LogoutButton from "../../components/LogoutButton";
 import EllipsisVerticalMenu from "./EllipsisVerticalMenu";
 import useAuth from "../../hooks/useAuth";
 import { Transition } from "@headlessui/react";
-import EmptyBg from "../../components/Empty";
+import EmptyBackground from "../../components/EmptyBackground";
 
 const ListsPage = () => {
   const [userLists, setUsersLists] = useState([]);
@@ -156,7 +156,7 @@ const ListsPage = () => {
               ))}
             </ul>
           ) : (
-            <EmptyBg title={"lists"} />
+            <EmptyBackground title={"lists page"} />
           )}
         </div>
       </Transition>
