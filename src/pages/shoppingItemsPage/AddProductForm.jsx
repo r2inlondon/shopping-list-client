@@ -3,8 +3,9 @@ import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import Spinning from "../../components/Spinning";
 import Turnstone from "turnstone";
 import ErrorMessage from "../../components/ErrorMessage";
+import capitalizedWord from "../../utils/capitalizedWord";
 
-const AddProductForm = ({ addProduct, setShowModal }) => {
+const AddProductForm = ({ addProduct, setShowModal, listItems }) => {
   const [product, setProduct] = useState("");
   const inputRef = useRef(null);
   const [submitting, setSubmitting] = useState(false);
@@ -23,8 +24,15 @@ const AddProductForm = ({ addProduct, setShowModal }) => {
       return;
     }
 
+    const newItem = capitalizedWord(trimmedNamed);
+
+    if (listItems.find((item) => item.product.name === newItem)) {
+      setErrMsg("Item already in list");
+      return;
+    }
+
     setSubmitting(true);
-    addProduct(trimmedNamed);
+    addProduct(newItem);
   };
 
   useEffect(() => {
@@ -64,7 +72,8 @@ const AddProductForm = ({ addProduct, setShowModal }) => {
   ];
 
   const turnstoneStyle = {
-    input: "w-full border border-gray-300 rounded-md p-2 w-full",
+    input:
+      "w-full border border-gray-300 rounded-md p-2 md:mb-4 w-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-200",
     listbox:
       "w-full bg-white sm:border sm:border-blue-300 sm:rounded text-left sm:mt-2 p-2 sm:drop-shadow-xl",
     highlightedItem:
@@ -73,11 +82,11 @@ const AddProductForm = ({ addProduct, setShowModal }) => {
   };
 
   return (
-    <div className="h-56 w-full">
+    <div className="h-fit w-full">
       {submitting && (
         <div
           role="status"
-          className="h-full w-60 flex justify-center items-center m-auto"
+          className="m-auto flex h-full w-60 items-center justify-center"
         >
           <Spinning msg={"Submitting"} />
         </div>
@@ -85,9 +94,9 @@ const AddProductForm = ({ addProduct, setShowModal }) => {
       {errMsg && <ErrorMessage errMsg={errMsg} setErrMsg={setErrMsg} />}
       {!submitting && (
         <form onSubmit={handleSubmit}>
-          <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+          <div className="px-4 sm:pt-6">
             <div className="sm:flex sm:items-start">
-              <div className="w-full mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+              <div className="mt-3 w-full text-center sm:mt-0 sm:ml-4 sm:text-left">
                 <div className="mt-2">
                   <Turnstone
                     id="fruitveg"
@@ -102,16 +111,16 @@ const AddProductForm = ({ addProduct, setShowModal }) => {
               </div>
             </div>
           </div>
-          <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+          <div className="px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6 sm:pb-6">
             <button
               type="submit"
-              className="mt-3 w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:mt-0 sm:ml-3 sm:text-sm"
+              className="mb-4 inline-flex w-full justify-center rounded-md border border-transparent bg-btn-color px-4 py-2 text-sm font-medium text-white shadow-sm transition-colors duration-200 hover:bg-btn-color-hover focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 sm:ml-3 sm:text-sm md:text-lg"
             >
               Submit
             </button>
             <button
               type="button"
-              className="mt-3 w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-rose-700 text-base font-medium text-white hover:bg-rose-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:mt-0 sm:ml-3 sm:text-sm"
+              className="mb-4 inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-red-700 shadow-sm transition-colors duration-200 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-white  focus:ring-offset-2 sm:text-sm md:text-lg"
               onClick={() => setShowModal(false)}
             >
               Cancel

@@ -3,15 +3,16 @@ import HeaderComp from "../components/HeaderComp";
 
 const Root = () => {
   return (
-    <main className="h-screen bg-black md:flex items-center justify-center">
-      <div className="h-full sm:w-[645px] md:h-5/6 bg-[url('src/assets/shoppingList-bg.jpg')] bg-center bg-no-repeat md:rounded-md ">
-        <div className="w-11/12 h-full m-auto relative">
-          <div className="h-1/6 md:h-1/5 mb-4 md:mb-6 flex justify-center items-end">
+    <main className="relative h-screen items-center justify-center md:flex">
+      <div className="z-10 h-full bg-white shadow-md sm:w-[645px] md:h-5/6 md:rounded-md">
+        <div className="relative m-auto h-full w-11/12">
+          <div className="z-20 flex h-1/6 items-end justify-center md:h-1/5">
             <HeaderComp />
           </div>
           <Outlet />
         </div>
       </div>
+      <div className="absolute inset-0 -z-10 sm:z-0 sm:bg-[url('assets/shopping-bg.png')] sm:opacity-50"></div>
     </main>
   );
 };

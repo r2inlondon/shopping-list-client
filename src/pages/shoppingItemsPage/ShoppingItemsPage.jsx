@@ -3,10 +3,11 @@ import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import { useEffect, Fragment, useState, useRef } from "react";
 import AddProductForm from "./AddProductForm";
 import ReModal from "../../components/ReModal";
-import LogoutButton from "../../components/LogoutButton";
 import sortBy from "sort-by";
-import { Flipper, Flipped, spring } from "react-flip-toolkit";
 import useAuth from "../../hooks/useAuth";
+import { Transition } from "@headlessui/react";
+import DeleteCompleted from "./DeleteCompleted";
+import EmptyBackground from "../../components/EmptyBackground";
 
 const ShoppingItemsPage = () => {
   let { listId } = useParams();
@@ -16,7 +17,7 @@ const ShoppingItemsPage = () => {
   const effectRun = useRef(false);
   const [showModal, setShowModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [errMsg, setErrMsg] = useState("");
+  const [isShowing, setIsShowing] = useState(true);
   const { setAuth } = useAuth();
 
   useEffect(() => {
@@ -62,13 +63,10 @@ const ShoppingItemsPage = () => {
         listId,
         name: item,
       });
-      setErrMsg("");
+
       setIsLoading(true);
     } catch (err) {
       console.error(err.message);
-      if (err.response?.status === 409) {
-        setErrMsg(`${item} is already on the list`);
-      }
     }
     setShowModal(false);
   };
@@ -103,115 +101,110 @@ const ShoppingItemsPage = () => {
     }
   };
 
-  const onElementAppear = (el, index) => {
-    const isChecked = el.childNodes[1].checked;
-    spring({
-      onUpdate: (val) => {
-        el.style.opacity = !isChecked ? val : val / 2;
-        el.style.transform = `scale(${val})`;
-      },
-      delay: index * 10,
-    });
-  };
-
   const backHome = () => {
     setAuth((prevState) => ({
       ...prevState,
       listName: "",
     }));
-    navigate("/home/ListPage/");
+
+    setIsShowing(false);
+
+    setTimeout(() => {
+      navigate("/home/ListPage/");
+    }, 300);
   };
 
   return (
     <Fragment>
-      <div className="flex justify-between mb-4">
-        <button
-          tabIndex={1}
-          onClick={() => backHome()}
-          className="inline-flex justify-center border border-transparent bg-slate-300 py-2 px-4 text-sm font-medium text-black shadow-sm hover:bg-slate-200 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
-        >
-          Home
-        </button>
-        <button
-          tabIndex={2}
-          onClick={() => deleteCompleted()}
-          className="inline-flex justify-center border border-transparent bg-slate-300 py-2 px-4 text-sm font-medium text-black shadow-sm hover:bg-slate-200 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
-        >
-          Clear
-        </button>
-        <button
-          tabIndex={3}
-          onClick={() => setShowModal(true)}
-          className="inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm"
-        >
-          Add Product +
-        </button>
-      </div>
-      {errMsg && (
-        <p
-          className="bg-red-100 border border-red-400 text-red-700 px-4 rounded relative"
-          role="alert"
-        >
-          {errMsg}
-        </p>
-      )}
-      <Flipper flipKey={listItems.length}>
+      <Transition
+        appear={isShowing}
+        show={isShowing}
+        enter="transform duration-500"
+        enterFrom={"-translate-x-14 opacity-0"}
+        enterTo="translate-x-0 opacity-100"
+        leave="transform duration-500"
+        leaveFrom="translate-x-0"
+        leaveTo={"filter -translate-x-8 opacity-0"}
+      >
+        <div className="mb-4 flex justify-between pt-4 sm:mb-6 sm:pt-6">
+          <button
+            tabIndex={1}
+            onClick={() => backHome()}
+            className="inline-flex justify-center border border-transparent bg-btn-color py-2 px-4 text-sm font-medium text-black shadow-sm hover:bg-btn-color-hover focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="30"
+              height="30"
+              viewBox="0 0 24 24 "
+              className="transform transition duration-300 hover:scale-125"
+              transform="scale(0.8333333333)"
+            >
+              <path
+                fill="white"
+                d="m12 20l-8-8l8-8l1.425 1.4l-5.6 5.6H20v2H7.825l5.6 5.6L12 20Z"
+              />
+            </svg>
+          </button>
+          <button
+            tabIndex={3}
+            onClick={() => setShowModal(true)}
+            className="inline-flex justify-center rounded-md border border-transparent bg-btn-color px-4 py-2 text-base text-lg font-semibold text-white shadow-sm transition-colors duration-200 hover:bg-btn-color-hover focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 sm:ml-3 sm:w-auto"
+          >
+            Add item +
+          </button>
+        </div>
         {listItems.length > 0 &&
           listItems.map((item, index) => {
             if (!item.completed) {
               return (
-                <Flipped
+                <div
                   key={item.id}
-                  flipId={item.id}
-                  onAppear={onElementAppear}
+                  onClick={() => handleCompleted(item.id, item.completed)}
+                  className="mb-2 flex cursor-pointer items-center justify-between bg-primary-color py-2 px-4 duration-300 hover:scale-105 md:mb-4"
                 >
-                  <div
-                    onClick={() => handleCompleted(item.id, item.completed)}
-                    className="flex justify-between items-center py-2 mb-2 px-4 bg-item-green"
-                  >
-                    <span>{item.product.name}</span>
-                    <input
-                      id={item.id}
-                      type="checkbox"
-                      value={item.id}
-                      checked={item.completed}
-                      onChange={() => handleCompleted(item.id, item.completed)}
-                      className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                    />
-                  </div>
-                </Flipped>
+                  <span>{item.product.name}</span>
+                  <input
+                    id={item.id}
+                    type="checkbox"
+                    value={item.id}
+                    checked={item.completed}
+                    onChange={() => handleCompleted(item.id, item.completed)}
+                    className="h-4 w-4 rounded border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600"
+                  />
+                </div>
               );
             } else {
               return (
-                <Flipped
-                  flipId={`${item.id}-checked`}
-                  key={`${item.id}-checked`}
-                  onAppear={onElementAppear}
+                <div
+                  key={item.id}
+                  onClick={() => handleCompleted(item.id, item.completed)}
+                  className="mb-2 flex cursor-pointer items-center justify-between bg-gray-100 px-4 py-2 opacity-50 md:mb-4"
                 >
-                  <div
-                    key={item.id}
-                    className="opacity-50 flex justify-between items-center px-4 py-2 mb-2 bg-gray-100"
-                  >
-                    <span>{item.product.name}</span>
-                    <input
-                      id={item.id}
-                      type="checkbox"
-                      value={item.id}
-                      checked={item.completed}
-                      onChange={() => handleCompleted(item.id, item.completed)}
-                      className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                    />
-                  </div>
-                </Flipped>
+                  <span>{item.product.name}</span>
+                  <input
+                    id={item.id}
+                    type="checkbox"
+                    value={item.id}
+                    checked={item.completed}
+                    onChange={() => handleCompleted(item.id, item.completed)}
+                    className="h-4 w-4 rounded border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600"
+                  />
+                </div>
               );
             }
           })}
-      </Flipper>
-      {listItems.length === 0 && <h3>Shopping List is empty</h3>}
+
+        {listItems.length === 0 && <EmptyBackground title={"shopping list"} />}
+      </Transition>
+      <DeleteCompleted deleteCompleted={deleteCompleted} />
       <ReModal showModal={showModal}>
-        <AddProductForm addProduct={addProduct} setShowModal={setShowModal} />
+        <AddProductForm
+          addProduct={addProduct}
+          setShowModal={setShowModal}
+          listItems={listItems}
+        />
       </ReModal>
-      <LogoutButton />
     </Fragment>
   );
 };

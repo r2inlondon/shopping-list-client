@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import useAuth from "../hooks/useAuth";
 
@@ -5,6 +6,7 @@ const LogoutButton = () => {
   const axiosPrivate = useAxiosPrivate();
   const { setAuth } = useAuth();
   const logoutURL = import.meta.env.VITE_LOGOUT_URL;
+  const navigate = useNavigate();
 
   const logout = async () => {
     try {
@@ -13,13 +15,14 @@ const LogoutButton = () => {
     } catch (err) {
       console.log(err.message);
     }
+    navigate("/");
   };
 
   return (
-    <div className="flex justify-end absolute bottom-10 right-0">
+    <div className="absolute bottom-10 right-0 flex justify-end">
       <button
         onClick={logout}
-        className="w-28 inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-orange-600 text-base font-semibold text-white hover:bg-orange-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 sm:ml-3 text-sm md:text-lg transition-colors duration-200"
+        className="inline-flex w-28 justify-center rounded-md border border-transparent bg-orange-600 px-4 py-2 text-base text-lg font-semibold text-white shadow-sm transition-colors duration-200 hover:bg-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 sm:ml-3"
       >
         Logout
       </button>

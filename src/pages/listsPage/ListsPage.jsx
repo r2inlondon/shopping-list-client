@@ -4,8 +4,10 @@ import { useNavigate, useLocation } from "react-router-dom";
 import ReModal from "../../components/ReModal";
 import AddListForm from "./AddListForm";
 import LogoutButton from "../../components/LogoutButton";
-import EllipsisVerticalMenu from "../../components/EllipsisVerticalMenu";
+import EllipsisVerticalMenu from "./EllipsisVerticalMenu";
 import useAuth from "../../hooks/useAuth";
+import { Transition } from "@headlessui/react";
+import EmptyBackground from "../../components/EmptyBackground";
 
 const ListsPage = () => {
   const [userLists, setUsersLists] = useState([]);
@@ -17,6 +19,7 @@ const ListsPage = () => {
   const [isLoading, setIsLoading] = useState("");
   const [listPreviousName, setListPreviousName] = useState({});
   const { setAuth } = useAuth();
+  const [isShowing, setIsShowing] = useState(true);
 
   useEffect(() => {
     let isMounted = true;
@@ -33,7 +36,8 @@ const ListsPage = () => {
         console.error(err.message);
         if (err.response?.status === 403) {
           // token expired, back to login
-          navigate("/", { state: { from: location }, replace: true });
+          // navigate("/", { state: { from: location }, replace: true });
+          navigate("/");
         }
       }
     };
@@ -102,45 +106,61 @@ const ListsPage = () => {
       ...prevState,
       listName,
     }));
-    navigate(`/home/ListPage/${listId}`);
+    setIsShowing(false);
+
+    setTimeout(() => {
+      navigate(`/home/ListPage/${listId}`);
+    }, 300);
   };
 
   return (
     <Fragment>
-      <div className="flex justify-end mb-4 md:mb-6">
-        <button
-          onClick={() => setShowModal(true)}
-          className=" inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-btn-color hover:bg-btn-color-hover text-base font-semibold text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto text-sm md:text-lg transition-colors duration-200"
-        >
-          New List +
-        </button>
-      </div>
-      <div className="flex justify-center items-center">
-        {userLists?.length ? (
-          <ul className="w-full">
-            {userLists.map((list) => (
-              <li
-                key={list.id}
-                className="flex mb-8 hover:scale-105 duration-300 "
-              >
-                <div
-                  onClick={() => navigateToList(list.id, list.name)}
-                  className="w-full inline-flex justify-center bg-primary-color py-2 px-4 text-sm font-medium text-black focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 cursor-pointer"
+      <Transition
+        appear={isShowing}
+        show={isShowing}
+        enter="transform duration-500"
+        enterFrom={"translate-x-14 opacity-0"}
+        enterTo="translate-x-0 opacity-100"
+        leave="transform duration-500"
+        leaveFrom="translate-x-0"
+        leaveTo={"filter translate-x-8 opacity-0"}
+      >
+        <div className="mb-4 flex justify-end pt-4 sm:mb-6 sm:pt-6">
+          <button
+            onClick={() => setShowModal(true)}
+            className="inline-flex justify-center rounded-md border border-transparent bg-btn-color px-4 py-2 text-base text-lg font-semibold text-white shadow-sm transition-colors duration-200 hover:bg-btn-color-hover focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 sm:ml-3 sm:w-auto"
+          >
+            New List +
+          </button>
+        </div>
+        <div className="flex items-center justify-center">
+          {userLists?.length ? (
+            <ul className="w-full">
+              {userLists.map((list) => (
+                <li
+                  key={list.id}
+                  className="mb-8 flex duration-300 hover:scale-105"
                 >
-                  <p className="text-md md:text-xl font-bold">{list.name}</p>
-                </div>
-                <EllipsisVerticalMenu
-                  deleteList={deleteList}
-                  listId={list.id}
-                  handleListToRename={handleListToRename}
-                />
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <h3>You don't have any lists, please create one</h3>
-        )}
-      </div>
+                  <div
+                    onClick={() => navigateToList(list.id, list.name)}
+                    className="inline-flex w-full cursor-pointer justify-center bg-primary-color py-2 px-4 text-sm font-medium text-black focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+                  >
+                    <p className="text-xl font-bold">{list.name}</p>
+                  </div>
+                  <EllipsisVerticalMenu
+                    deleteList={deleteList}
+                    listId={list.id}
+                    handleListToRename={handleListToRename}
+                  />
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <EmptyBackground title={"lists page"} />
+          )}
+        </div>
+      </Transition>
+      <LogoutButton />
       <ReModal showModal={showModal}>
         {listPreviousName.id ? (
           <AddListForm
@@ -155,7 +175,6 @@ const ListsPage = () => {
           />
         )}
       </ReModal>
-      <LogoutButton />
     </Fragment>
   );
 };
