@@ -57,11 +57,23 @@ const ListsPage = () => {
       const response = await axiosPrivate.post("lists/new", {
         name: newListName,
       });
-      navigate(`/home/ListPage/${response.data.id}`);
+      navigateToList(response.data.id, response.data.name);
+      // navigate(`/home/ListPage/${response.data.id}`);
     } catch (err) {
       console.error(err.message);
-      // navigate("/", { state: { from: location }, replace: true });
     }
+  };
+
+  const navigateToList = (listId, listName) => {
+    setAuth((prevState) => ({
+      ...prevState,
+      listName,
+    }));
+    setIsShowing(false);
+
+    setTimeout(() => {
+      navigate(`/home/ListPage/${listId}`);
+    }, 300);
   };
 
   const updateList = async (id, name) => {
@@ -99,18 +111,6 @@ const ListsPage = () => {
     } catch (err) {
       console.error(err.message);
     }
-  };
-
-  const navigateToList = (listId, listName) => {
-    setAuth((prevState) => ({
-      ...prevState,
-      listName,
-    }));
-    setIsShowing(false);
-
-    setTimeout(() => {
-      navigate(`/home/ListPage/${listId}`);
-    }, 300);
   };
 
   return (
